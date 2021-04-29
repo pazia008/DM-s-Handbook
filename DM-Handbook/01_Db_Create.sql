@@ -22,7 +22,6 @@ CREATE TABLE [UserProfiles] (
   [Id] int PRIMARY KEY IDENTITY,
   [Username] nvarchar(255) NOT NULL,
   [Email] nvarchar(255) NOT NULL,
-  [Password] nvarchar(255) NOT NULL,
   [FirebaseId] NVARCHAR(255) NOT NULL,
 
   CONSTRAINT UQ_FirebaseId UNIQUE(FirebaseId)
