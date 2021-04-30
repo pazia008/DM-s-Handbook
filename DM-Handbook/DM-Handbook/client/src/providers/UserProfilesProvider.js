@@ -8,10 +8,10 @@ export const UserProfilesContext = createContext();
 
 export function UserProfilesProvider(props) {
     const history = useHistory();
-    const apiUrl = "/api/userprofile";
+    const apiUrl = "/api/userprofiles";
     const [users, setUsers] = useState([]);
 
-    const userProfiles = sessionStorage.getItem("userProfiles");
+    const userProfiles = sessionStorage.getItem("userProfile");
     const [isLoggedIn, setIsLoggedIn] = useState(userProfiles != null);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -48,7 +48,7 @@ export function UserProfilesProvider(props) {
             .auth()
             .createUserWithEmailAndPassword(userProfile.email, password)
             .then((createResponse) =>
-                saveUser({ ...userProfile, firebaseUserId: createResponse.user.uid })
+                saveUser({ ...userProfile, firebaseId: createResponse.user.uid })
             )
             .then((savedUserProfile) => {
                 sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile));
@@ -58,9 +58,9 @@ export function UserProfilesProvider(props) {
 
     const getToken = () => firebase.auth().currentUser.getIdToken();
 
-    const getUserProfile = (firebaseUserId) => {
+    const getUserProfile = (firebaseId) => {
         return getToken().then((token) =>
-            fetch(`${apiUrl}/${firebaseUserId}`, {
+            fetch(`${apiUrl}/${firebaseId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
