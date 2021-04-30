@@ -14,7 +14,7 @@ namespace DM_Handbook.Models
 
             [Required]
             [MaxLength(50)]
-            public string Userame { get; set; }
+            public string Username { get; set; }
 
             [Required]
             [MaxLength(50)]
