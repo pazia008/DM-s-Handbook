@@ -77,7 +77,7 @@ export function UserProfilesProvider(props) {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(userProfile),
+                body: JSON.stringify(userProfile)
             }).then((resp) => resp.json())
         );
     };
