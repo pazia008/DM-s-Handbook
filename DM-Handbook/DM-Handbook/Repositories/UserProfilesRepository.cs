@@ -47,5 +47,29 @@ namespace DM_Handbook.Repositories
             }
         }
 
+
+
+        public void Add(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO [UserProfiles] (FirebaseId, Email, Username)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@FirebaseId, @Email, @Username)";
+
+                    DbUtils.AddParameter(cmd, "@FirebaseId", userProfile.FirebaseId);
+                    DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
+                    DbUtils.AddParameter(cmd, "@Username", userProfile.Username);
+
+                    userProfile.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
+
     }
 }

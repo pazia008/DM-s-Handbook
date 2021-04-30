@@ -6,5 +6,6 @@ namespace DM_Handbook.Repositories
     public interface IUserProfilesRepository
     {
         UserProfile GetByFirebaseUserId(string firebaseId);
+        void Add(UserProfile userProfile);
     }
 }
