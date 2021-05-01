@@ -30,6 +30,7 @@ namespace DM_Handbook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserProfilesRepository, UserProfilesRepository>();
+            services.AddTransient<IAdventureNotesRepository, AdventureNotesRepository>();
 
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
