@@ -10,7 +10,7 @@ using static DM_Handbook.Models.UserProfiles;
 
 namespace DM_Handbook.Controllers
 {
-    
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdventureNotesController : ControllerBase
