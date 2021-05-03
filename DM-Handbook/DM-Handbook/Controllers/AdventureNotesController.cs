@@ -28,11 +28,14 @@ namespace DM_Handbook.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAllByUserId()
         {
-           var notes = _adventureNotesRepository.GetAll();
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
 
-            return Ok(notes);
+            List<AdventureCampaign> userNotes = _adventureNotesRepository.GetAllByUserId(user.Id);
+
+            return Ok(userNotes);
         }
 
 
