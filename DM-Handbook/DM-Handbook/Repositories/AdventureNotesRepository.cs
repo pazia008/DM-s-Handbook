@@ -67,7 +67,33 @@ namespace DM_Handbook.Repositories
                 }
             }
         }
-    
+
+
+
+
+        public void Add(AdventureNotes adventureNotes)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO AdventureNotes (UserId, CampaignId, Synopsis, DateCreated)
+                        OUTPUT INSERTED.ID
+                        VALUES (@UserId, @CampaignId, @Synopsis, @DateCreated)";
+
+                    DbUtils.AddParameter(cmd, "@UserId", adventureNotes.UserId);
+                    DbUtils.AddParameter(cmd, "@CampaignId", adventureNotes.CampaignId);
+                    DbUtils.AddParameter(cmd, "@Synopsis", adventureNotes.Synopsis);
+                    DbUtils.AddParameter(cmd, "@DateCreated", adventureNotes.DateCreated);
+            
+                    adventureNotes.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
 
 
     }

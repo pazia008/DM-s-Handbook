@@ -39,12 +39,27 @@ namespace DM_Handbook.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult Add(AdventureNotes adventureNotes)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            adventureNotes.UserId = currentUserProfile.Id;
+            adventureNotes.DateCreated = DateTime.Now;
+            _adventureNotesRepository.Add(adventureNotes);
+
+            return Ok(adventureNotes);
+        }
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfilesRepository.GetByFirebaseUserId(firebaseId);
         }
 
+
+      
 
     }
 }

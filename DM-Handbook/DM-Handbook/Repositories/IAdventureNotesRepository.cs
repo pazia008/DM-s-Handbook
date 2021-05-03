@@ -6,5 +6,6 @@ namespace DM_Handbook.Repositories
     public interface IAdventureNotesRepository
     {
         List<AdventureCampaign> GetAllByUserId(int userId);
+        void Add(AdventureNotes adventureNotes);
     }
 }
