@@ -22,10 +22,11 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT ad.Id, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.[Name], am.AdventureId, am.Id, am.MonsterNpcId
+                            SELECT ad.Id, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.[Name], am.AdventureId, am.Id, am.MonsterNpcId, mn.[Name] AS MonsterName
                             FROM AdventureNotes ad
                             JOIN Campaigns c ON ad.CampaignId = c.Id
                             JOIN AdventureMonsters am ON ad.Id = am.Id
+                            JOIN MonsterNpcs mn on ad.Id = mn.Id
                             ORDER BY ad.DateCreated ASC";
 
                     DbUtils.AddParameter(cmd, "@currentDate", DateTime.Now);
@@ -51,6 +52,9 @@ namespace DM_Handbook.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                             },
+                            MonsterNpcs = new MonsterNpcs() {
+                                Name = reader.GetString(reader.GetOrdinal("MonsterName")),
+                            }
                         };
                             adventureCampaigns.Add(adventureCampaign);
                     

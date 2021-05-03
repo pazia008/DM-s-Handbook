@@ -10,6 +10,7 @@ namespace DM_Handbook.Models
        public AdventureNotes Notes { get; set; }
 
        public Campaigns Campaigns { get; set; }
+       public MonsterNpcs MonsterNpcs { get; set; }
             
     }
 }
