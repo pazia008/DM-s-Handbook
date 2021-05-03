@@ -12,6 +12,7 @@ const AdventureNote = ({ adventureNote }) => {
             <CardHeader>
                 <h2>{adventureNote.campaigns.name}</h2>
                 <p>{adventureNote.notes.synopsis}</p>
+                <p>Monster or Npc: {adventureNote.monsterNpcs.name}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
 
             </CardHeader>
