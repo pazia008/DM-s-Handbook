@@ -14,7 +14,7 @@ namespace DM_Handbook.Repositories
 
 
 
-        public List<AdventureCampaign> GetAll()
+        public List<AdventureCampaign> GetAllByUserId(int userId)
         {
             using (var conn = Connection)
             {
@@ -27,9 +27,11 @@ namespace DM_Handbook.Repositories
                             JOIN Campaigns c ON ad.CampaignId = c.Id
                             JOIN AdventureMonsters am ON ad.Id = am.Id
                             JOIN MonsterNpcs mn on ad.Id = mn.Id
+                            WHERE ad.UserId = @UserId
                             ORDER BY ad.DateCreated ASC";
 
                     DbUtils.AddParameter(cmd, "@currentDate", DateTime.Now);
+                    DbUtils.AddParameter(cmd, "@UserId", userId);
 
                     var reader = cmd.ExecuteReader();
 

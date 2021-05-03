@@ -5,6 +5,6 @@ namespace DM_Handbook.Repositories
 {
     public interface IAdventureNotesRepository
     {
-        List<AdventureCampaign> GetAll();
+        List<AdventureCampaign> GetAllByUserId(int userId);
     }
 }
