@@ -15,7 +15,7 @@ const AdventureNotesList = () => {
     return (
         <Container>
             <Row className="justify-content-md-center">
-                <Link to="/adventureNote/new" className="nav-link">
+                <Link to="/adventureNotes/new" className="nav-link">
                     New Adventure Log
             </Link>
             </Row>

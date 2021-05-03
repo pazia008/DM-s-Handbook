@@ -25,7 +25,7 @@ export default function ApplicationViews() {
                     <Register />
                 </Route>
 
-                <Route path="/adventureNote" exact>
+                <Route path="/adventureNotes" exact>
                     {isLoggedIn ? <AdventureNotesList /> : <Redirect to="/Login" />}
                 </Route>
             </Switch>

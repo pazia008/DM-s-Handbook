@@ -15,7 +15,7 @@ namespace DM_Handbook.Models
         public int CampaignId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(255)]
         public string Synopsis { get; set; }
 
         public DateTime DateCreated { get; set; }

@@ -7,7 +7,7 @@ export const AdventureNotesContext = createContext();
 export function AdventureNotesProvider(props) {
     const [adventureNotes, setAdventureNotes] = useState([]);
     const { getToken } = useContext(UserProfilesContext);
-    const apiUrl = "/api/adventureNote";
+    const apiUrl = "/api/adventureNotes";
 
     const getAllAdventureNotes = () => {
         return getToken()

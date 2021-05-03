@@ -53,7 +53,7 @@ export default function Header() {
                         {/* When isLoggedIn === true, we will render the My Posts link */}
                         {isLoggedIn && (
                             <NavItem>
-                                <NavLink tag={RRNavLink} to="/adventureNote">
+                                <NavLink tag={RRNavLink} to="/adventureNotes">
                                     Adventure Notes
                                 </NavLink>
                             </NavItem>

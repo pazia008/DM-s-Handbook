@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DM_Handbook.Models;
 using DM_Handbook.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,9 @@ namespace DM_Handbook.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_adventureNotesRepository.GetAll());
+            List<AdventureNotes> notes = _adventureNotesRepository.GetAll();
+
+            return Ok(notes);
         }
 
 
