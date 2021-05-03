@@ -14,7 +14,7 @@ namespace DM_Handbook.Repositories
 
 
 
-        public List<AdventureNotes> GetAll()
+        public List<AdventureCampaign> GetAll()
         {
             using (var conn = Connection)
             {
@@ -32,27 +32,36 @@ namespace DM_Handbook.Repositories
 
                     var reader = cmd.ExecuteReader();
 
-                    var adventureNotes = new List<AdventureNotes>();
+                    var adventureCampaigns = new List<AdventureCampaign>();
 
                     while (reader.Read())
                     {
-                        var adventureNote = new AdventureNotes()
+                        var adventureCampaign = new AdventureCampaign()
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Synopsis = reader.GetString(reader.GetOrdinal("Synopsis")),
-                            DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated")),
-                            UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
-                            CampaignId = reader.GetInt32(reader.GetOrdinal("CampaignId")),
+                            Notes = new AdventureNotes()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Synopsis = reader.GetString(reader.GetOrdinal("Synopsis")),
+                                DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated")),
+                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                                CampaignId = reader.GetInt32(reader.GetOrdinal("CampaignId")),
+                            },
+                            Campaigns = new Campaigns()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                            },
                         };
-                        adventureNotes.Add(adventureNote);
+                            adventureCampaigns.Add(adventureCampaign);
+                    
                     }
                     reader.Close();
 
-                    return adventureNotes;
+                    return adventureCampaigns;
                 }
             }
         }
-
+    
 
 
     }

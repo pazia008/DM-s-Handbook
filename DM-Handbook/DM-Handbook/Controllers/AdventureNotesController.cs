@@ -30,7 +30,7 @@ namespace DM_Handbook.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<AdventureNotes> notes = _adventureNotesRepository.GetAll();
+           var notes = _adventureNotesRepository.GetAll();
 
             return Ok(notes);
         }
