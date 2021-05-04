@@ -28,10 +28,13 @@ namespace DM_Handbook.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAllByUserId(int userId)
+        public IActionResult GetAllByUserId()
         {
-    
-            List<Campaigns> userCampaigns = _campaignsRepository.GetAllByUserId(userId);
+            var currentUserProfile = GetCurrentUser();
+
+            if (currentUserProfile == null) return NotFound();
+
+            List<Campaigns> userCampaigns = _campaignsRepository.GetAllByUserId(currentUserProfile.Id);
 
             return Ok(userCampaigns);
         }

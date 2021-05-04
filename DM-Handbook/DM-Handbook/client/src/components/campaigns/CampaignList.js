@@ -6,10 +6,11 @@ import Campaign from "./Campaigns";
 
 
 const CampaignList = () => {
-    const { campaigns, getAllCampaigns } = useContext(CampaignsContext);
+    const { campaigns, getAllCampaigns, setCampaigns } = useContext(CampaignsContext);
 
     useEffect(() => {
         getAllCampaigns()
+            .then((res) => setCampaigns(res))
             .then(console.log(campaigns))
     }, []);
 

@@ -21,14 +21,14 @@ export const CampaignsProvider = (props) => {
                 },
             })
                 .then((res) => res.json())
-                .then(setCampaigns));
+            );
     };
 
 
 
 
     return (
-        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns }}>
+        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns }}>
             {props.children}
         </CampaignsContext.Provider>
     );
