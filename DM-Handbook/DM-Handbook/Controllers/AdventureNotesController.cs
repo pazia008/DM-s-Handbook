@@ -33,7 +33,7 @@ namespace DM_Handbook.Controllers
             var user = GetCurrentUser();
             if (user == null) return NotFound();
 
-            List<AdventureCampaign> userNotes = _adventureNotesRepository.GetAllByUserId(user.Id);
+            List<AdventureNotes> userNotes = _adventureNotesRepository.GetAllByUserId(user.Id);
 
             return Ok(userNotes);
         }

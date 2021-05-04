@@ -19,5 +19,8 @@ namespace DM_Handbook.Models
         public string Synopsis { get; set; }
 
         public DateTime DateCreated { get; set; }
-     }
+        public Campaigns Campaigns { get; set; }
+        public List<MonsterNpcs> MonsterNpcs { get; set; }
+      
+    }
 }

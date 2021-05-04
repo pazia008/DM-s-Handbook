@@ -7,6 +7,7 @@ namespace DM_Handbook.Models
 {
     public class AdventureCampaign
     {
+        
        public AdventureNotes Notes { get; set; }
 
        public Campaigns Campaigns { get; set; }

@@ -67,7 +67,8 @@ const AdventureNoteFormAdd = () => {
                 campaignId: adventureNote.campaignId,
                 synopsis: adventureNote.synopsis,
                 dateCreated: adventureNote.dateCreated,
-            });
+            })
+                .then(() => history.push("/adventureNotes"));
         }
     };
 
