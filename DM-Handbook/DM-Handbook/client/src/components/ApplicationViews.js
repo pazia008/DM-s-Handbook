@@ -6,6 +6,7 @@ import Register from "../Register";
 import Hello from "./Hello";
 import AdventureNote from "./adventureNotes/AdventureNotes";
 import AdventureNotesList from "./adventureNotes/AdventureNotesList";
+import AdventureNoteFormAdd from "./adventureNotes/AdventureNoteAddForm";
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(UserProfilesContext);
@@ -27,6 +28,9 @@ export default function ApplicationViews() {
 
                 <Route path="/adventureNotes" exact>
                     {isLoggedIn ? <AdventureNotesList /> : <Redirect to="/Login" />}
+                </Route>
+                <Route path="/adventureNotes/new" exact>
+                    {isLoggedIn ? <AdventureNoteFormAdd /> : <Redirect to="/Login" />}
                 </Route>
             </Switch>
         </main>

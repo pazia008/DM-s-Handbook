@@ -21,8 +21,23 @@ export function AdventureNotesProvider(props) {
             .then(setAdventureNotes)
     };
 
+
+    const saveAdventureNote = (adventureNote) => {
+        return getToken()
+            .then(token => fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(adventureNote),
+            }))
+            .then(resp => resp.json())
+    };
+
+
     return (
-        <AdventureNotesContext.Provider value={{ adventureNotes, getAllAdventureNotes }}>
+        <AdventureNotesContext.Provider value={{ adventureNotes, getAllAdventureNotes, saveAdventureNote }}>
             {props.children}
         </AdventureNotesContext.Provider>
     );
