@@ -2,10 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { FormGroup, Label } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { AdventureNotesContext } from "../../providers/AdventureNotesProvider";
+import { CampaignsContext } from "../../providers/CampaignsProvider";
 
 const AdventureNoteFormAdd = () => {
     const history = useHistory();
     const { saveAdventureNote, getAllAdventureNotes } = useContext(AdventureNotesContext);
+    const { getAllCampaigns, campaigns } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
     const [adventureNote, setAdventureNote] = useState({
         userId: 0,
@@ -14,7 +16,6 @@ const AdventureNoteFormAdd = () => {
         dateCreated: "",
 
     });
-
 
 
 
@@ -34,6 +35,10 @@ const AdventureNoteFormAdd = () => {
 
     useEffect(() => {
         getAllAdventureNotes();
+    }, []);
+
+    useEffect(() => {
+        getAllCampaigns();
     }, []);
 
     const handleClickSaveNote = () => {

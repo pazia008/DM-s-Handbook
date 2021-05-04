@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { UserProfilesProvider } from "./providers/UserProfilesProvider";
 import { AdventureNotesProvider } from "./providers/AdventureNotesProvider";
+import { CampaignsProvider } from "./providers/CampaignsProvider";
 
 function App() {
 
@@ -11,8 +12,10 @@ function App() {
     <Router>
       <UserProfilesProvider>
         <AdventureNotesProvider>
-          <Header />
-          <ApplicationViews />
+          <CampaignsProvider>
+            <Header />
+            <ApplicationViews />
+          </CampaignsProvider>
         </AdventureNotesProvider>
       </UserProfilesProvider>
     </Router>
