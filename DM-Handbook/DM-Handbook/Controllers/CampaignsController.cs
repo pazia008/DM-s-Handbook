@@ -41,6 +41,17 @@ namespace DM_Handbook.Controllers
 
 
 
+        [HttpPost]
+        public IActionResult Add(Campaigns campaigns)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            campaigns.UserId = currentUserProfile.Id;
+            _campaignsRepository.Add(campaigns);
+
+            return Ok(campaigns);
+        }
+
 
 
         private UserProfile GetCurrentUser()
@@ -51,4 +62,4 @@ namespace DM_Handbook.Controllers
 
 
     }
-}
+} 

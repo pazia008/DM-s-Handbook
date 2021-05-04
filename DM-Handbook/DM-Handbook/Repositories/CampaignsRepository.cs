@@ -52,5 +52,28 @@ namespace DM_Handbook.Repositories
 
 
 
+        public void Add(Campaigns campaigns)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Campaigns (UserId, [Name])
+                        OUTPUT INSERTED.ID
+                        VALUES (@UserId, @Name)";
+
+                    DbUtils.AddParameter(cmd, "@UserId", campaigns.UserId);
+                    DbUtils.AddParameter(cmd, "@Name", campaigns.Name);
+                  
+
+                    campaigns.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
+
     }
 }

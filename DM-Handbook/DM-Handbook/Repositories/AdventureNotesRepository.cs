@@ -65,7 +65,6 @@ namespace DM_Handbook.Repositories
                                 adventure.MonsterNpcs.Add(new MonsterNpcs()
                                 {
                                     Id = DbUtils.GetInt(reader, "Id"),
-                                    Abilities = DbUtils.GetString(reader, "Abilities"),
                                     Name = DbUtils.GetString(reader, "MonsterName"),
                                     MonsterOrNpcTypeId = DbUtils.GetInt(reader, "MonsterNpcId"),
                                     UserId = DbUtils.GetInt(reader, "UserId")

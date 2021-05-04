@@ -12,6 +12,7 @@ namespace DM_Handbook.Models
 
        public Campaigns Campaigns { get; set; }
        public MonsterNpcs MonsterNpcs { get; set; }
+
             
     }
 }
