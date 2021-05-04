@@ -54,6 +54,18 @@ namespace DM_Handbook.Controllers
 
 
 
+        [HttpDelete("{campaignId}")]
+        public IActionResult Delete(int campaignId)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _campaignsRepository.Delete(campaignId);
+            return NoContent();
+        }
+
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

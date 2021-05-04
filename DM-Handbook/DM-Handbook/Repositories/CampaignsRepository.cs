@@ -74,6 +74,23 @@ namespace DM_Handbook.Repositories
         }
 
 
+        public void Delete(int campaignId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE Campaigns
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", campaignId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
     }
 }

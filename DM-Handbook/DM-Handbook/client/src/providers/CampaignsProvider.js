@@ -41,8 +41,22 @@ export const CampaignsProvider = (props) => {
 
 
 
+    const deleteCampaign = campaign => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${campaign.id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }))
+            .then(getAllCampaigns)
+
+    };
+
+
+
     return (
-        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns, saveCampaign }}>
+        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns, saveCampaign, deleteCampaign }}>
             {props.children}
         </CampaignsContext.Provider>
     );
