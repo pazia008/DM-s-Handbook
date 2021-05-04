@@ -66,6 +66,18 @@ namespace DM_Handbook.Controllers
 
 
 
+        [HttpPut("{campaignId}")]
+        public IActionResult Put(Campaigns campaigns)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _campaignsRepository.Update(campaigns);
+            return NoContent();
+        }
+
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

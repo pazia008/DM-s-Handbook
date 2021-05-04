@@ -55,8 +55,22 @@ export const CampaignsProvider = (props) => {
 
 
 
+    const updateCampaign = campaign => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${campaign.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(campaign),
+            }))
+    };
+
+
+
     return (
-        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns, saveCampaign, deleteCampaign }}>
+        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns, saveCampaign, deleteCampaign, updateCampaign }}>
             {props.children}
         </CampaignsContext.Provider>
     );

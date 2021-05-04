@@ -20,6 +20,14 @@ const Campaign = ({ campaign }) => {
             <CardHeader>
                 <h2>{campaign.name}</h2>
             </CardHeader>
+            <Button type="button" onClick={() => {
+                const confirmBox = window.confirm("Do you really want to edit this Campaign?")
+                if (confirmBox === true) {
+                    history.push(`/campaigns/edit/${campaign.id}`)
+                }
+            }} className="edit-button">
+                Edit
+                    </Button>
             <Button variant="secondary" onClick={() => {
                 const confirmBox = window.confirm(
                     "Do you really want to delete this Camapign?"

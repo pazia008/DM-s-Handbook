@@ -8,6 +8,9 @@ import AdventureNotesList from "./adventureNotes/AdventureNotesList";
 import AdventureNoteFormAdd from "./adventureNotes/AdventureNoteAddForm";
 import CampaignList from "./campaigns/CampaignList";
 import CampaignAddForm from "./campaigns/CampaignAddForm";
+import CampaignEditForm from "./campaigns/CampaignEditForm";
+
+
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(UserProfilesContext);
@@ -41,6 +44,10 @@ export default function ApplicationViews() {
 
                 <Route path="/campaigns/new" exact>
                     {isLoggedIn ? <CampaignAddForm /> : <Redirect to="/Login" />}
+                </Route>
+
+                <Route path="/campaigns/edit/:id" exact>
+                    {isLoggedIn ? <CampaignEditForm /> : <Redirect to="/Login" />}
                 </Route>
             </Switch>
         </main>

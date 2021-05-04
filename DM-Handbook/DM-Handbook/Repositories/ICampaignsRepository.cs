@@ -8,5 +8,7 @@ namespace DM_Handbook.Repositories
         List<Campaigns> GetAllByUserId(int userId);
         void Add(Campaigns campaigns);
         void Delete(int campaignId);
+
+        void Update(Campaigns campaigns);
     }
 }
