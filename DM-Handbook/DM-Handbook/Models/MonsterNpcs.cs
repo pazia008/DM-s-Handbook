@@ -27,5 +27,6 @@ namespace DM_Handbook.Models
         public string Abilities { get; set; }
 
         public DateTime DateCreated { get; set; }
+        
     }
 }

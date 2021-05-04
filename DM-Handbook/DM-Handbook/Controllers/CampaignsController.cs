@@ -14,42 +14,44 @@ namespace DM_Handbook.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AdventureNotesController : ControllerBase
+    public class CampaignsController : ControllerBase
     {
-
-        private readonly IAdventureNotesRepository _adventureNotesRepository;
+        private readonly ICampaignsRepository _campaignsRepository;
         private readonly IUserProfilesRepository _userProfilesRepository;
 
-        public AdventureNotesController(IAdventureNotesRepository adventureNotesRepository, IUserProfilesRepository userProfilesRepository)
+        public CampaignsController(ICampaignsRepository campaignsRepository, IUserProfilesRepository userProfilesRepository)
         {
-            _adventureNotesRepository = adventureNotesRepository;
+            _campaignsRepository = campaignsRepository;
             _userProfilesRepository = userProfilesRepository;
         }
+
 
 
         [HttpGet]
         public IActionResult GetAllByUserId()
         {
-            var user = GetCurrentUser();
-            if (user == null) return NotFound();
+            var currentUserProfile = GetCurrentUser();
 
-            List<AdventureNotes> userNotes = _adventureNotesRepository.GetAllByUserId(user.Id);
+            if (currentUserProfile == null) return NotFound();
 
-            return Ok(userNotes);
+            List<Campaigns> userCampaigns = _campaignsRepository.GetAllByUserId(currentUserProfile.Id);
+
+            return Ok(userCampaigns);
         }
+
 
 
         [HttpPost]
-        public IActionResult Add(AdventureNotes adventureNotes)
+        public IActionResult Add(Campaigns campaigns)
         {
             var currentUserProfile = GetCurrentUser();
 
-            adventureNotes.UserId = currentUserProfile.Id;
-            adventureNotes.DateCreated = DateTime.Now;
-            _adventureNotesRepository.Add(adventureNotes);
+            campaigns.UserId = currentUserProfile.Id;
+            _campaignsRepository.Add(campaigns);
 
-            return Ok(adventureNotes);
+            return Ok(campaigns);
         }
+
 
 
         private UserProfile GetCurrentUser()
@@ -59,7 +61,5 @@ namespace DM_Handbook.Controllers
         }
 
 
-      
-
     }
-}
+} 

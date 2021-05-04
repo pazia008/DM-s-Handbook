@@ -42,8 +42,8 @@ export default function Header() {
                         {/* When isLoggedIn === true, we will render the Posts link */}
                         {isLoggedIn && (
                             <NavItem>
-                                <NavLink tag={RRNavLink} to="/post">
-                                    Posts
+                                <NavLink tag={RRNavLink} to="/players">
+                                    Players
                 </NavLink>
                             </NavItem>
                         )}
@@ -63,8 +63,8 @@ export default function Header() {
                     <Nav className="mr-auto" navbar>
                         {isLoggedIn && (
                             <NavItem>
-                                <NavLink tag={RRNavLink} to="/tag">
-                                    Tags
+                                <NavLink tag={RRNavLink} to="/campaigns">
+                                    Campaigns
                 </NavLink>
                             </NavItem>
                         )}
@@ -72,8 +72,8 @@ export default function Header() {
                     <Nav className="mr-auto" navbar>
                         {isLoggedIn && (
                             <NavItem>
-                                <NavLink tag={RRNavLink} to="/category">
-                                    Categories
+                                <NavLink tag={RRNavLink} to="/monsterOrNpc">
+                                    Monsters & Npcs
                 </NavLink>
                             </NavItem>
                         )}
@@ -89,7 +89,7 @@ export default function Header() {
                                         onClick={logout}
                                     >
                                         Logout
-                  </a>
+                                           </a>
                                 </NavItem>
 
                             </>

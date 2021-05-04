@@ -2,27 +2,31 @@ import React, { useState, createContext, useContext } from "react";
 import { UserProfilesContext } from "./UserProfilesProvider";
 import "firebase/auth";
 
-export const AdventureNotesContext = createContext();
+export const CampaignsContext = createContext();
 
-export function AdventureNotesProvider(props) {
-    const [adventureNotes, setAdventureNotes] = useState([]);
+export const CampaignsProvider = (props) => {
+
+    const [campaigns, setCampaigns] = useState([]);
+
     const { getToken } = useContext(UserProfilesContext);
-    const apiUrl = "/api/adventureNotes";
 
-    const getAllAdventureNotes = () => {
+    const apiUrl = "/api/campaigns";
+
+    const getAllCampaigns = () => {
         return getToken()
             .then(token => fetch(apiUrl, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }))
-            .then(res => res.json())
-            .then(setAdventureNotes)
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => res.json())
+            );
     };
 
 
-    const saveAdventureNote = (adventureNote) => {
+
+    const saveCampaign = (campaign) => {
         return getToken()
             .then(token => fetch(apiUrl, {
                 method: "POST",
@@ -30,15 +34,16 @@ export function AdventureNotesProvider(props) {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(adventureNote),
+                body: JSON.stringify(campaign),
             }))
             .then(resp => resp.json())
     };
 
 
+
     return (
-        <AdventureNotesContext.Provider value={{ adventureNotes, getAllAdventureNotes, saveAdventureNote }}>
+        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns, saveCampaign }}>
             {props.children}
-        </AdventureNotesContext.Provider>
+        </CampaignsContext.Provider>
     );
 };
