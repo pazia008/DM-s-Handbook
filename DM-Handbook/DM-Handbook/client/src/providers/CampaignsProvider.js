@@ -4,7 +4,8 @@ import "firebase/auth";
 
 export const CampaignsContext = createContext();
 
-export function CampaignsProvider(props) {
+export const CampaignsProvider = (props) => {
+
     const [campaigns, setCampaigns] = useState([]);
 
     const { getToken } = useContext(UserProfilesContext);
@@ -16,30 +17,18 @@ export function CampaignsProvider(props) {
             .then(token => fetch(apiUrl, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }))
-            .then(res => res.json())
-            .then(setCampaigns)
-    };
-
-
-    const saveCampaign = (campaign) => {
-        return getToken()
-            .then(token => fetch(apiUrl, {
-                method: "POST",
-                headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(campaign),
-            }))
-            .then(resp => resp.json())
+            })
+                .then((res) => res.json())
+                .then(setCampaigns));
     };
+
+
 
 
     return (
-        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, saveCampaign }}>
+        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns }}>
             {props.children}
         </CampaignsContext.Provider>
     );

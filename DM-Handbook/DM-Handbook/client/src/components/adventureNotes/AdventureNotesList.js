@@ -21,7 +21,7 @@ const AdventureNotesList = () => {
             </Row>
             <Row>
                 {adventureNotes.map((a) => (
-                    <Col key={a.id} md="4"><AdventureNote adventureNote={a} /></Col>
+                    <Col md="4"><AdventureNote key={a.id} adventureNote={a} /></Col>
                 ))}
             </Row>
         </Container>

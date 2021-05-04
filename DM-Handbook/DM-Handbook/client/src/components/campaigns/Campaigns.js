@@ -1,9 +1,8 @@
 import React from "react";
 import { Card, CardHeader } from "reactstrap";
-import { Link } from "react-router-dom";
+
 
 const Campaign = ({ campaign }) => {
-
 
 
     return (

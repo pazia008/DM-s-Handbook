@@ -11,12 +11,12 @@ function App() {
   return (
     <Router>
       <UserProfilesProvider>
-        <AdventureNotesProvider>
-          <CampaignsProvider>
+        <CampaignsProvider>
+          <AdventureNotesProvider>
             <Header />
             <ApplicationViews />
-          </CampaignsProvider>
-        </AdventureNotesProvider>
+          </AdventureNotesProvider>
+        </CampaignsProvider>
       </UserProfilesProvider>
     </Router>
   );
