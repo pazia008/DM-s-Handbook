@@ -26,9 +26,23 @@ export const CampaignsProvider = (props) => {
 
 
 
+    const saveCampaign = (campaign) => {
+        return getToken()
+            .then(token => fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(campaign),
+            }))
+            .then(resp => resp.json())
+    };
+
+
 
     return (
-        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns }}>
+        <CampaignsContext.Provider value={{ campaigns, getAllCampaigns, setCampaigns, saveCampaign }}>
             {props.children}
         </CampaignsContext.Provider>
     );
