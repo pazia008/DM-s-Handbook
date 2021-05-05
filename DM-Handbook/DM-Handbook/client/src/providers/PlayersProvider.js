@@ -61,15 +61,15 @@ export function PlayersProvider(props) {
     };
 
 
-    const updatePlayer = (playerId) => {
+    const updatePlayer = (player) => {
         return getToken()
-            .then(token => fetch(`${apiUrl}/${playerId}`, {
+            .then(token => fetch(`${apiUrl}/${player.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(playerId),
+                body: JSON.stringify(player),
             }))
     };
 

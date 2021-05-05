@@ -45,6 +45,7 @@ const PlayerEditForm = () => {
 
         // Update the existing player in the database
         updatePlayer({
+            id: player.id,
             campaignId: player.campaignId,
             name: player.name,
             race: player.race,
