@@ -14,6 +14,6 @@ namespace DM_Handbook.Models
 
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

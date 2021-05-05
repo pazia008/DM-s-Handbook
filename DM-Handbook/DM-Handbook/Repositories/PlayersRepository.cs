@@ -24,7 +24,7 @@ namespace DM_Handbook.Repositories
                     cmd.CommandText = @"
                             SELECT p.Id, p.UserId, p.CampaignId, p.[Name], p.Race, p.HowTheyPlay, p.DateCreated, c.[Name] AS CampaignName
                             FROM Players p
-                            LEFT JOIN Campaigns c on p.Id = c.Id
+                            LEFT JOIN Campaigns c on p.CampaignId = c.Id
                             WHERE p.UserId = @UserId
                             ORDER BY p.DateCreated ASC";
 
@@ -48,8 +48,8 @@ namespace DM_Handbook.Repositories
                             CampaignId = DbUtils.GetInt(reader,"CampaignId"),
                             Campaigns = new Campaigns()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Name = reader.GetString(reader.GetOrdinal("CampaignName")),
+                                Id = DbUtils.GetInt(reader,"Id"),
+                                Name = DbUtils.GetString(reader,"CampaignName"),
                             },
                         };
                         players.Add(player);
