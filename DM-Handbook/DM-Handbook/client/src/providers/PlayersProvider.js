@@ -48,9 +48,36 @@ export function PlayersProvider(props) {
     };
 
 
+    const deletePlayer = player => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${player.id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }))
+            .then(getAllPlayers)
+
+    };
+
+
+    const updatePlayer = (player) => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${player.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(player),
+            }))
+    };
+
+
+
 
     return (
-        <PlayersContext.Provider value={{ players, getAllPlayers, setPlayers, getPlayerById, savePlayer }}>
+        <PlayersContext.Provider value={{ players, getAllPlayers, setPlayers, getPlayerById, savePlayer, deletePlayer, updatePlayer }}>
             {props.children}
         </PlayersContext.Provider>
     );

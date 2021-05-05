@@ -8,5 +8,7 @@ namespace DM_Handbook.Repositories
         List<Players> GetAllByUserId(int userId);
         Players GetById(int playerId);
         void Add(Players player);
+        void Delete(int playerId);
+        void Update(Players players);
     }
 }

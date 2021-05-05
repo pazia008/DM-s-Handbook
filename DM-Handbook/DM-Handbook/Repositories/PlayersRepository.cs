@@ -73,7 +73,7 @@ namespace DM_Handbook.Repositories
                     cmd.CommandText = @"
                         SELECT p.Id, p.UserId, p.CampaignId, p.[Name], p.Race, p.HowTheyPlay, p.DateCreated, c.[Name] AS CampaignName
                             FROM Players p
-                            LEFT JOIN Campaigns c on p.Id = c.Id                    
+                            LEFT JOIN Campaigns c on p.CampaignId = c.Id                    
                         WHERE p.Id = @PlayersId";
 
                     DbUtils.AddParameter(cmd, "@PlayersId", playerId);
@@ -133,6 +133,52 @@ namespace DM_Handbook.Repositories
             }
         }
 
+
+        public void Delete(int playerId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE Players
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", playerId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void Update(Players players)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Players
+                           SET CampaignId = @CampaignId,
+                            Name = @Name,
+                            Race = @Race,
+                            HowTheyPlay = @HowTheyPlay,
+                            DateCreated = @DateCreated
+                             WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", players.Id);
+                    DbUtils.AddParameter(cmd, "@CampaignId", players.CampaignId);
+                    DbUtils.AddParameter(cmd, "@Name", players.Name);
+                    DbUtils.AddParameter(cmd, "@Race", players.Race);
+                    DbUtils.AddParameter(cmd, "@HowTheyPlay", players.HowTheyPlay);
+                    DbUtils.AddParameter(cmd, "@DateCreated", players.DateCreated);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
     }
