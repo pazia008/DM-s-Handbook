@@ -12,6 +12,7 @@ import CampaignEditForm from "./campaigns/CampaignEditForm";
 import PlayerList from "./players/PlayerList";
 import PlayerFormAdd from "./players/PlayerAddForm"
 import PlayerEditForm from "./players/PlayerEditForm";
+import MonsterList from "./monstersAndNpcs/MonsterList";
 
 
 export default function ApplicationViews() {
@@ -68,6 +69,12 @@ export default function ApplicationViews() {
 
                 <Route path="/players/edit/:playerId" exact>
                     {isLoggedIn ? <PlayerEditForm /> : <Redirect to="/Login" />}
+                </Route>
+
+                {/* Monsters & Npc Links */}
+
+                <Route path="/monsterNpcs" exact>
+                    {isLoggedIn ? <MonsterList /> : <Redirect to="/Login" />}
                 </Route>
             </Switch>
         </main>

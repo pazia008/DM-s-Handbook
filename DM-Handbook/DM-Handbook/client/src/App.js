@@ -6,6 +6,7 @@ import { UserProfilesProvider } from "./providers/UserProfilesProvider";
 import { AdventureNotesProvider } from "./providers/AdventureNotesProvider";
 import { CampaignsProvider } from "./providers/CampaignsProvider";
 import { PlayersProvider } from "./providers/PlayersProvider";
+import { MonsterNpcsProvider } from "./providers/MonsterNpcsProvider";
 
 function App() {
 
@@ -15,8 +16,10 @@ function App() {
         <CampaignsProvider>
           <AdventureNotesProvider>
             <PlayersProvider>
-              <Header />
-              <ApplicationViews />
+              <MonsterNpcsProvider>
+                <Header />
+                <ApplicationViews />
+              </MonsterNpcsProvider>
             </PlayersProvider>
           </AdventureNotesProvider>
         </CampaignsProvider>
