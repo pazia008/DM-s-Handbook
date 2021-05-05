@@ -18,7 +18,7 @@ const Player = ({ player }) => {
         <Card className="m-2 shadow postCard">
             <CardHeader>
                 <h2>{player.name}</h2>
-                <h3>{player.campaigns.name}</h3>
+                <h4>Campaign: {player.campaigns.name}</h4>
                 <p>Race: {player.race}</p>
                 <p>How do they play: {player.howTheyPlay}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>

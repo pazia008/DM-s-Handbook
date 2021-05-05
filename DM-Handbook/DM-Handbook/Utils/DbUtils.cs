@@ -9,8 +9,9 @@ namespace DM_Handbook.Utils
   
         public static class DbUtils
         {
-            public static string GetNullableString(SqlDataReader reader, string column)
+            public static string? GetNullableString(SqlDataReader reader, string column)
             {
+
                 var ordinal = reader.GetOrdinal(column);
                 if (reader.IsDBNull(ordinal))
                 {

@@ -22,11 +22,35 @@ export function PlayersProvider(props) {
     };
 
 
+    const getPlayerById = (playerId) => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${playerId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }))
+            .then(res => res.json())
+    };
+
+
+    const savePlayer = (player) => {
+        return getToken()
+            .then(token => fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(player),
+            }))
+            .then(resp => resp.json())
+    };
 
 
 
     return (
-        <PlayersContext.Provider value={{ players, getAllPlayers, setPlayers }}>
+        <PlayersContext.Provider value={{ players, getAllPlayers, setPlayers, getPlayerById, savePlayer }}>
             {props.children}
         </PlayersContext.Provider>
     );
