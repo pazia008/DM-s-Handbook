@@ -22,7 +22,7 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT p.Id, p.UserId, p.CampaignId, p.[Name], p.Race, p.HowTheyPlay, p.DateCreated, c.[Name]
+                            SELECT p.Id, p.UserId, p.CampaignId, p.[Name], p.Race, p.HowTheyPlay, p.DateCreated, c.[Name] AS CampaignName
                             FROM Players p
                             LEFT JOIN Campaigns c on p.Id = c.Id
                             WHERE p.UserId = @UserId
@@ -49,7 +49,7 @@ namespace DM_Handbook.Repositories
                             Campaigns = new Campaigns()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Name = reader.GetString(reader.GetOrdinal("CampaignName")),
                             },
                         };
                         players.Add(player);
