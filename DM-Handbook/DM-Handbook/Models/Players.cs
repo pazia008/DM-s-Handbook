@@ -16,15 +16,15 @@ namespace DM_Handbook.Models
 
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string Race { get; set; }
+        public string? Race { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string HowTheyPlay { get; set; }
+        [MaxLength(255)]
+        public string? HowTheyPlay { get; set; }
 
         public DateTime DateCreated { get; set; }
         public Campaigns Campaigns { get; set; }

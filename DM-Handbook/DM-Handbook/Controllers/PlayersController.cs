@@ -41,6 +41,33 @@ namespace DM_Handbook.Controllers
         }
 
 
+        [HttpGet("{playerId}")]
+        public IActionResult Get(int playerId)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            if (currentUserProfile == null) return NotFound();
+
+            var tag = _playersRepository.GetById(playerId);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
+
+
+        [HttpPost]
+        public IActionResult Add(Players player)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            player.UserId = currentUserProfile.Id;
+            _playersRepository.Add(player);
+
+            return Ok(player);
+        }
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

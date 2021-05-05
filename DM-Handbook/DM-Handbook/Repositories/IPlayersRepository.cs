@@ -6,5 +6,7 @@ namespace DM_Handbook.Repositories
     public interface IPlayersRepository
     {
         List<Players> GetAllByUserId(int userId);
+        Players GetById(int playerId);
+        void Add(Players player);
     }
 }
