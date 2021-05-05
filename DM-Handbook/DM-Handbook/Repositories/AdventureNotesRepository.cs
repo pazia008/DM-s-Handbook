@@ -22,11 +22,12 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.[Name], am.AdventureId, am.Id, am.MonsterNpcId, mn.[Name] AS MonsterName
+                             SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.Id AS CampId, c.[Name], am.AdventureId, am.Id, am.MonsterNpcId, mn.[Name] AS MonsterName
                             FROM AdventureNotes ad
                             LEFT JOIN Campaigns c ON ad.CampaignId = c.Id
-                            LEFT JOIN AdventureMonsters am ON ad.Id = am.Id
-                            LEFT JOIN MonsterNpcs mn on ad.Id = mn.Id
+                            LEFT JOIN AdventureMonsters am ON am.Id = am.Id
+                            LEFT JOIN MonsterNpcs mn on am.MonsterNpcId = mn.Id
+                            
                             WHERE ad.UserId = @UserId
                             ORDER BY ad.DateCreated ASC";
 
@@ -39,43 +40,25 @@ namespace DM_Handbook.Repositories
 
                     while (reader.Read())
                     {
-                        var adventureNoteId = DbUtils.GetInt(reader, "AdventureNoteId");
-
-                        var adventureNote = adventureNotes.FirstOrDefault(a => a.Id == adventureNoteId);
-
-                        if (adventureNote == null)
+                        var adventureNote = new AdventureNotes()
                         {
-                            var adventure = new AdventureNotes()
+                            Id = DbUtils.GetInt(reader, "AdventureNoteId"),
+                            UserId = DbUtils.GetInt(reader, "UserId"),
+                            Synopsis = DbUtils.GetNullableString(reader, "Synopsis"),
+                            DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                            CampaignId = DbUtils.GetInt(reader, "CampaignId"),
+                            Campaigns = new Campaigns()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Synopsis = reader.GetString(reader.GetOrdinal("Synopsis")),
-                                DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated")),
-                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
-                                CampaignId = reader.GetInt32(reader.GetOrdinal("CampaignId")),
-                                Campaigns = new Campaigns()
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                    Name = reader.GetString(reader.GetOrdinal("Name")),
-                                },
-                                MonsterNpcs = new List<MonsterNpcs>()
-                            };
+                                Id = DbUtils.GetInt(reader, "CampId"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                            },
+                            MonsterNpcs = new List<MonsterNpcs>() 
+                            { 
 
-                            if (DbUtils.IsNotDbNull(reader, "MonsterNpcId"))
-                            {
-                                adventure.MonsterNpcs.Add(new MonsterNpcs()
-                                {
-                                    Id = DbUtils.GetInt(reader, "Id"),
-                                    Name = DbUtils.GetString(reader, "MonsterName"),
-                                    MonsterOrNpcTypeId = DbUtils.GetInt(reader, "MonsterNpcId"),
-                                    UserId = DbUtils.GetInt(reader, "UserId")
-                                });
                             }
-                            ;
-                            adventureNotes.Add(adventureNote);
-
-                        }
-
-
+                           
+                        };
+                        adventureNotes.Add(adventureNote);
                     }
 
                     reader.Close();
