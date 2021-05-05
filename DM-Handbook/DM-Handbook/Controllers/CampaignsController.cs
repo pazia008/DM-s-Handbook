@@ -39,6 +39,21 @@ namespace DM_Handbook.Controllers
             return Ok(userCampaigns);
         }
 
+        [HttpGet("{campaignId}")]
+        public IActionResult Get(int campaignId)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            if (currentUserProfile == null) return NotFound();
+
+            var tag = _campaignsRepository.GetById(campaignId);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
+
 
 
         [HttpPost]

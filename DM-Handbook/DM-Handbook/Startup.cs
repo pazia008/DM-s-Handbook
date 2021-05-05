@@ -32,6 +32,7 @@ namespace DM_Handbook
             services.AddTransient<IUserProfilesRepository, UserProfilesRepository>();
             services.AddTransient<IAdventureNotesRepository, AdventureNotesRepository>();
             services.AddTransient<ICampaignsRepository, CampaignsRepository>();
+            services.AddTransient<IPlayersRepository, PlayersRepository>();
 
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");

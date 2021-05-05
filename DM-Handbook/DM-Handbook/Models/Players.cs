@@ -27,5 +27,6 @@ namespace DM_Handbook.Models
         public string HowTheyPlay { get; set; }
 
         public DateTime DateCreated { get; set; }
+        public Campaigns Campaigns { get; set; }
     }
 }

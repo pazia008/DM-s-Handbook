@@ -5,23 +5,22 @@ import { CampaignsContext } from "../../providers/CampaignsProvider";
 
 const CampaignEditForm = () => {
     const history = useHistory();
-    const { id } = useParams();
-    const { updateCampaign, getAllCampaigns } = useContext(CampaignsContext);
+    const { campaignId } = useParams();
+    const { updateCampaign, getCampaignById } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
     const [campaign, setCampaign] = useState({
-        id: id,
         userId: 0,
         name: "",
     });
 
     useEffect(() => {
-        getAllCampaigns(id)
-            .then(resp => setCampaign(resp.campaign))
+        getCampaignById(campaignId)
+            .then(resp => setCampaign(resp))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Handles updating the state of campaign 
-    const handleInput = e => {
+    const handleInput = (e) => {
         const newCampaign = { ...campaign };
         newCampaign[e.target.id] = e.target.value;
         setCampaign(newCampaign);
@@ -61,7 +60,6 @@ const CampaignEditForm = () => {
                             autoFocus
                             className="form-control"
                             placeholder="Name"
-                            value={campaign.name}
                         />
                     </div>
                 </fieldset>
