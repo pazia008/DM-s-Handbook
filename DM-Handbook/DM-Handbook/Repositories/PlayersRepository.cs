@@ -134,6 +134,23 @@ namespace DM_Handbook.Repositories
         }
 
 
+        public void Delete(int playerId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE Players
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", playerId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
     }
 }

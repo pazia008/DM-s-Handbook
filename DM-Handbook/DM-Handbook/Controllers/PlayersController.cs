@@ -68,6 +68,17 @@ namespace DM_Handbook.Controllers
             return Ok(player);
         }
 
+
+        [HttpDelete("{playerId}")]
+        public IActionResult Delete(int playerId)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _playersRepository.Delete(playerId);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

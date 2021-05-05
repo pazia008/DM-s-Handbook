@@ -8,6 +8,13 @@ import { PlayersContext } from "../../providers/PlayersProvider";
 
 const Player = ({ player }) => {
 
+    const { deletePlayer } = useContext(PlayersContext);
+
+
+    const playerDelete = () => {
+        deletePlayer(player);
+    }
+
     let date = new Date(player.dateCreated);
     console.log(player)
 
@@ -23,6 +30,16 @@ const Player = ({ player }) => {
                 <p>How do they play: {player.howTheyPlay}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
             </CardHeader>
+            <Button variant="secondary" onClick={() => {
+                const confirmBox = window.confirm(
+                    "Do you really want to delete this Player?"
+                )
+                if (confirmBox === true) {
+                    playerDelete(deletePlayer)
+                }
+            }} className="delete-button">
+                Delete
+                </Button>
         </Card>
     );
 };
