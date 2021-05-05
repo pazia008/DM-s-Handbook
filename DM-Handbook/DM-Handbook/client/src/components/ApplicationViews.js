@@ -11,6 +11,7 @@ import CampaignAddForm from "./campaigns/CampaignAddForm";
 import CampaignEditForm from "./campaigns/CampaignEditForm";
 import PlayerList from "./players/PlayerList";
 import PlayerFormAdd from "./players/PlayerAddForm"
+import PlayerEditForm from "./players/PlayerEditForm";
 
 
 export default function ApplicationViews() {
@@ -63,6 +64,10 @@ export default function ApplicationViews() {
 
                 <Route path="/players/new" exact>
                     {isLoggedIn ? <PlayerFormAdd /> : <Redirect to="/Login" />}
+                </Route>
+
+                <Route path="/players/edit/:playerId" exact>
+                    {isLoggedIn ? <PlayerEditForm /> : <Redirect to="/Login" />}
                 </Route>
             </Switch>
         </main>

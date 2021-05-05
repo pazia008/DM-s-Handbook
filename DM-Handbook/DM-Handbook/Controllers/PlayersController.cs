@@ -79,6 +79,17 @@ namespace DM_Handbook.Controllers
             return NoContent();
         }
 
+
+        [HttpPut("{playerId}")]
+        public IActionResult Put(Players players)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _playersRepository.Update(players);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

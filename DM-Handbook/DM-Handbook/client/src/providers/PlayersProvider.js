@@ -61,9 +61,23 @@ export function PlayersProvider(props) {
     };
 
 
+    const updatePlayer = (playerId) => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${playerId}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(playerId),
+            }))
+    };
+
+
+
 
     return (
-        <PlayersContext.Provider value={{ players, getAllPlayers, setPlayers, getPlayerById, savePlayer, deletePlayer }}>
+        <PlayersContext.Provider value={{ players, getAllPlayers, setPlayers, getPlayerById, savePlayer, deletePlayer, updatePlayer }}>
             {props.children}
         </PlayersContext.Provider>
     );

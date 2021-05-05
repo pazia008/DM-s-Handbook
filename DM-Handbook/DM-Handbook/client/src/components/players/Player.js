@@ -30,6 +30,15 @@ const Player = ({ player }) => {
                 <p>How do they play: {player.howTheyPlay}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
             </CardHeader>
+            <Button type="button" onClick={() => {
+                const confirmBox = window.confirm("Do you really want to edit this Player?")
+                if (confirmBox === true) {
+                    history.push(`/players/edit/${player.id}`)
+                }
+            }} className="edit-button">
+                Edit
+                    </Button>
+
             <Button variant="secondary" onClick={() => {
                 const confirmBox = window.confirm(
                     "Do you really want to delete this Player?"
