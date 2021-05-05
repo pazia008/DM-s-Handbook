@@ -5,6 +5,7 @@ import ApplicationViews from "./components/ApplicationViews";
 import { UserProfilesProvider } from "./providers/UserProfilesProvider";
 import { AdventureNotesProvider } from "./providers/AdventureNotesProvider";
 import { CampaignsProvider } from "./providers/CampaignsProvider";
+import { PlayersProvider } from "./providers/PlayersProvider";
 
 function App() {
 
@@ -13,8 +14,10 @@ function App() {
       <UserProfilesProvider>
         <CampaignsProvider>
           <AdventureNotesProvider>
-            <Header />
-            <ApplicationViews />
+            <PlayersProvider>
+              <Header />
+              <ApplicationViews />
+            </PlayersProvider>
           </AdventureNotesProvider>
         </CampaignsProvider>
       </UserProfilesProvider>

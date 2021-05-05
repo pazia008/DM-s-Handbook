@@ -52,6 +52,42 @@ namespace DM_Handbook.Repositories
 
 
 
+        public Campaigns GetById(int campaignId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT 
+                        c.Id, c.UserId, c.[Name]    
+                        FROM Campaigns c                     
+                        WHERE c.Id = @CampaignId";
+
+                    DbUtils.AddParameter(cmd, "@CampaignId", campaignId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Campaigns campaign = null;
+
+                    if (reader.Read())
+                    {
+                        campaign = new Campaigns()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            UserId = DbUtils.GetInt(reader, "UserId"),
+                            Name = DbUtils.GetString(reader, "Name")
+                        };
+                    }
+                    reader.Close();
+                    return campaign;
+                }
+            }
+        }
+
+
+
         public void Add(Campaigns campaigns)
         {
             using (var conn = Connection)
@@ -72,6 +108,47 @@ namespace DM_Handbook.Repositories
                 }
             }
         }
+
+
+        public void Delete(int campaignId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE Campaigns
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", campaignId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void Update(Campaigns campaigns)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Campaigns
+                           SET Name = @Name
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Name", campaigns.Name);
+                    DbUtils.AddParameter(cmd, "@Id", campaigns.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
 
 

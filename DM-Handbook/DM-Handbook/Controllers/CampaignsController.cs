@@ -39,6 +39,21 @@ namespace DM_Handbook.Controllers
             return Ok(userCampaigns);
         }
 
+        [HttpGet("{campaignId}")]
+        public IActionResult Get(int campaignId)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            if (currentUserProfile == null) return NotFound();
+
+            var tag = _campaignsRepository.GetById(campaignId);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
+
 
 
         [HttpPost]
@@ -50,6 +65,30 @@ namespace DM_Handbook.Controllers
             _campaignsRepository.Add(campaigns);
 
             return Ok(campaigns);
+        }
+
+
+
+        [HttpDelete("{campaignId}")]
+        public IActionResult Delete(int campaignId)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _campaignsRepository.Delete(campaignId);
+            return NoContent();
+        }
+
+
+
+        [HttpPut("{campaignId}")]
+        public IActionResult Put(Campaigns campaigns)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _campaignsRepository.Update(campaigns);
+            return NoContent();
         }
 
 
