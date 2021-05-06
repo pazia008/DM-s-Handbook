@@ -97,5 +97,25 @@ namespace DM_Handbook.Repositories
 
 
 
+        public void Delete(int adventureNoteId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE AdventureNotes
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", adventureNoteId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
     }
 }

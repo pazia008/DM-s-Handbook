@@ -7,5 +7,6 @@ namespace DM_Handbook.Repositories
     {
         List<AdventureNotes> GetAllByUserId(int userId);
         void Add(AdventureNotes adventureNotes);
+        void Delete(int adventureNoteId);
     }
 }

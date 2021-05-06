@@ -53,6 +53,16 @@ namespace DM_Handbook.Controllers
         }
 
 
+        [HttpDelete("{adventureNoteId}")]
+        public IActionResult Delete(int adventureNoteId)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _adventureNotesRepository.Delete(adventureNoteId);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
