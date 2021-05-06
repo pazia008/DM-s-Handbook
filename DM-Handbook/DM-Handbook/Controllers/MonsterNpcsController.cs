@@ -68,6 +68,19 @@ namespace DM_Handbook.Controllers
         }
 
 
+
+
+        [HttpDelete("{monsterNpcId}")]
+        public IActionResult Delete(int monsterNpcId)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _monsterNpcsRepository.Delete(monsterNpcId);
+            return NoContent();
+        }
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
