@@ -61,8 +61,21 @@ export function MonsterNpcsProvider(props) {
     };
 
 
+    const updateMonster = (monster) => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${monster.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(monster),
+            }))
+    };
+
+
     return (
-        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster }}>
+        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster, updateMonster }}>
             {props.children}
         </MonsterNpcsContext.Provider>
     );
