@@ -24,9 +24,9 @@ namespace DM_Handbook.Repositories
                     cmd.CommandText = @"
                             SELECT mn.Id, mn.UserId, mn.MonsterOrNpcTypeId, mn.Synopsis, mn.[Name], mn.Abilities, mn.DateCreated, mt.Id AS MonsterId, mt.[Name] AS MonsterOrNpc
                             FROM MonsterNpcs mn
-                            LEFT JOIN MonsterOrNpcType mt on mn.Id = mt.Id
-                            ORDER BY mn.DateCreated ASC
-                            WHERE mn.UserId = @UserId";
+                            LEFT JOIN MonsterOrNpcType mt on mn.MonsterOrNpcTypeId = mt.Id
+                            WHERE mn.UserId = @UserId
+                            ORDER BY mn.DateCreated ASC";
 
 
                     DbUtils.AddParameter(cmd, "@UserId", userId);
@@ -46,6 +46,11 @@ namespace DM_Handbook.Repositories
                             Abilities = reader.GetString(reader.GetOrdinal("Abilities")),
                             DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated")),
                             MonsterOrNpcTypeId = reader.GetInt32(reader.GetOrdinal("MonsterOrNpcTypeId")),
+                            MonsterOrNpcTypes = new MonsterOrNpcType()
+                            {
+                                Id = DbUtils.GetInt(reader, "MonsterId"),
+                                Name = DbUtils.GetString(reader, "MonsterOrNpc"),
+                            },
 
                         };
                         monsters.Add(monster);

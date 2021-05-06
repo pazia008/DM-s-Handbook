@@ -16,7 +16,7 @@ namespace DM_Handbook.Models
 
         [Required]
         [MaxLength(255)]
-        public string Synopsis { get; set; }
+        public string? Synopsis { get; set; }
 
         public DateTime DateCreated { get; set; }
         public Campaigns Campaigns { get; set; }

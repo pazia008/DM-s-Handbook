@@ -15,18 +15,20 @@ namespace DM_Handbook.Models
         public int MonsterOrNpcTypeId { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
+        [MaxLength(255)]
+        public string? Name { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Synopsis { get; set; }
+        [MaxLength(255)]
+        public string? Synopsis { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Abilities { get; set; }
+        [MaxLength(255)]
+        public string? Abilities { get; set; }
 
         public DateTime DateCreated { get; set; }
-        
+
+        public MonsterOrNpcType MonsterOrNpcTypes { get; set; }
+
     }
 }

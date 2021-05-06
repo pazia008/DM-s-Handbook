@@ -72,7 +72,7 @@ export default function Header() {
                     <Nav className="mr-auto" navbar>
                         {isLoggedIn && (
                             <NavItem>
-                                <NavLink tag={RRNavLink} to="/monsterOrNpc">
+                                <NavLink tag={RRNavLink} to="/monsterNpcs">
                                     Monsters & Npcs
                 </NavLink>
                             </NavItem>
