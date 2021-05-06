@@ -30,10 +30,11 @@ namespace DM_Handbook.Controllers
         [HttpGet]
         public IActionResult GetAllByUserId()
         {
-            var user = GetCurrentUser();
-            if (user == null) return NotFound();
+            var currentUserProfile = GetCurrentUser();
 
-            List<AdventureNotes> userNotes = _adventureNotesRepository.GetAllByUserId(user.Id);
+            if (currentUserProfile == null) return NotFound();
+
+            List<AdventureNotes> userNotes = _adventureNotesRepository.GetAllByUserId(currentUserProfile.Id);
 
             return Ok(userNotes);
         }

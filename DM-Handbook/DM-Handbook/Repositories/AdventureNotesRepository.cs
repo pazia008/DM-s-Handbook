@@ -51,10 +51,6 @@ namespace DM_Handbook.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "CampId"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                            },
-                            MonsterNpcs = new List<MonsterNpcs>() 
-                            { 
-
                             }
                            
                         };
