@@ -23,7 +23,7 @@ const MonsterList = () => {
             </Row>
             <Row>
                 {monsters.map((m) => (
-                    <Col md="4"><Monster key={m.id} player={m} /></Col>
+                    <Col md="4"><Monster key={m.id} monsterNpc={m} /></Col>
                 ))}
             </Row>
         </Container>
