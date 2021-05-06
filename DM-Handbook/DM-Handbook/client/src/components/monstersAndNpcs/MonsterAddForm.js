@@ -2,11 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import { FormGroup, Label } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { MonsterNpcsContext } from "../../providers/MonsterNpcsProvider";
+import { MonsterOrNpcTypesContext } from "../../providers/MonsterOrNpcTypeProvider";
 
 
 const MonsterFormAdd = () => {
     const history = useHistory();
     const { saveMonster, getAllMonsters } = useContext(MonsterNpcsContext);
+    const { getAllMonsterTypes, monsterTypes } = useContext(MonsterOrNpcTypesContext);
     const [isLoading, setIsLoading] = useState(false);
     const [monster, setMonster] = useState({
         userId: 0,
@@ -38,6 +40,9 @@ const MonsterFormAdd = () => {
         getAllMonsters();
     }, []);
 
+    useEffect(() => {
+        getAllMonsterTypes();
+    }, []);
 
     const handleClickSaveMonster = () => {
 
@@ -85,7 +90,7 @@ const MonsterFormAdd = () => {
                 <FormGroup>
                     <select id="monsterOrNpcTypeId" onChange={handleControlledInputChange}>
                         <option value="0">Monster Or Npc?</option>
-                        {monster.monsterOrNpcType.map((m) => (
+                        {monsterTypes.map((m) => (
                             <option key={m.id} value={m.id}>
                                 {m.name}
                             </option>
