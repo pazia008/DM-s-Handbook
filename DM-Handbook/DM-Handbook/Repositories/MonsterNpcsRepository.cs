@@ -152,5 +152,34 @@ namespace DM_Handbook.Repositories
         }
 
 
+        public void Update(MonsterNpcs monster)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE MonsterNpcs
+                           SET MonsterOrNpcTypeId = @MonsterOrNpcTypeId,
+                            Name = @Name,
+                            Synopsis = @Synopsis,
+                            Abilities = @Abilities,
+                            DateCreated = @DateCreated
+                             WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", monster.Id);
+                    DbUtils.AddParameter(cmd, "@MonsterOrNpcTypeId", monster.MonsterOrNpcTypeId);
+                    DbUtils.AddParameter(cmd, "@Name", monster.Name);
+                    DbUtils.AddParameter(cmd, "@Synopsis", monster.Synopsis);
+                    DbUtils.AddParameter(cmd, "@Abilities", monster.Abilities);
+                    DbUtils.AddParameter(cmd, "@DateCreated", monster.DateCreated);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }

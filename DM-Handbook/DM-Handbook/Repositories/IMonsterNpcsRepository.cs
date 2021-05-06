@@ -9,5 +9,6 @@ namespace DM_Handbook.Repositories
         MonsterNpcs GetById(int monsterNpcId);
         void Add(MonsterNpcs monster);
         void Delete(int monsterNpcId);
+        void Update(MonsterNpcs monster);
     }
 }
