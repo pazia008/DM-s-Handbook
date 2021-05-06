@@ -48,8 +48,21 @@ export function MonsterNpcsProvider(props) {
     };
 
 
+    const deleteMonster = monster => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${monster.id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }))
+            .then(getAllMonsters)
+
+    };
+
+
     return (
-        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster }}>
+        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster }}>
             {props.children}
         </MonsterNpcsContext.Provider>
     );

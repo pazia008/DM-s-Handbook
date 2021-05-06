@@ -9,6 +9,13 @@ import { MonsterNpcsContext } from "../../providers/MonsterNpcsProvider";
 
 const Monster = ({ monsterNpc }) => {
 
+    const { deleteMonster } = useContext(MonsterNpcsContext);
+
+
+    const monsterDelete = () => {
+        deleteMonster(monsterNpc);
+    }
+
 
     let date = new Date(monsterNpc.dateCreated);
     console.log(monsterNpc)
@@ -25,7 +32,16 @@ const Monster = ({ monsterNpc }) => {
                 <p>Abilities: {monsterNpc.abilities}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
             </CardHeader>
-
+            <Button variant="secondary" onClick={() => {
+                const confirmBox = window.confirm(
+                    "Do you really want to delete this Monster or Npc?"
+                )
+                if (confirmBox === true) {
+                    monsterDelete(deleteMonster)
+                }
+            }} className="delete-button">
+                Delete
+                </Button>
         </Card>
     );
 };

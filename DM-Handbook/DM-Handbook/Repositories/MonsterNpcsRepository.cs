@@ -134,5 +134,23 @@ namespace DM_Handbook.Repositories
         }
 
 
+        public void Delete(int monsterNpcId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE MonsterNpcs
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", monsterNpcId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }
