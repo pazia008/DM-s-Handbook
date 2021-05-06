@@ -81,6 +81,18 @@ namespace DM_Handbook.Controllers
         }
 
 
+
+        [HttpPut("{monsterId}")]
+        public IActionResult Put(MonsterNpcs monster)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _monsterNpcsRepository.Update(monster);
+            return NoContent();
+        }
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
