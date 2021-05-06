@@ -7,5 +7,6 @@ namespace DM_Handbook.Repositories
     {
         List<MonsterNpcs> GetAllByUserId(int userId);
         MonsterNpcs GetById(int monsterNpcId);
+        void Add(MonsterNpcs monster);
     }
 }

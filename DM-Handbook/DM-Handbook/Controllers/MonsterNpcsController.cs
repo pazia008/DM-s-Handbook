@@ -56,6 +56,18 @@ namespace DM_Handbook.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult Add(MonsterNpcs monster)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            monster.UserId = currentUserProfile.Id;
+            _monsterNpcsRepository.Add(monster);
+
+            return Ok(monster);
+        }
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

@@ -107,5 +107,32 @@ namespace DM_Handbook.Repositories
         }
 
 
+        public void Add(MonsterNpcs monster)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO MonsterNpcs (UserId, MonsterOrNpcTypeId, Name, Synopsis, Abilities, DateCreated)
+                        OUTPUT INSERTED.ID
+                        VALUES (@UserId, @MonsterOrNpcTypeId, @Name, @Synopsis, @Abilities, @DateCreated)";
+
+                    DbUtils.AddParameter(cmd, "@UserId", monster.UserId);
+                    DbUtils.AddParameter(cmd, "@MonsterOrNpcTypeId", monster.MonsterOrNpcTypeId);
+                    DbUtils.AddParameter(cmd, "@Name", monster.Name);
+                    DbUtils.AddParameter(cmd, "@Synopsis", monster.Synopsis);
+                    DbUtils.AddParameter(cmd, "@Abilities", monster.Abilities);
+                    DbUtils.AddParameter(cmd, "@DateCreated", monster.DateCreated);                    
+                    
+
+
+                    monster.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
     }
 }
