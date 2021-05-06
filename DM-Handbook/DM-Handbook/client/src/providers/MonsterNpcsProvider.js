@@ -22,8 +22,34 @@ export function MonsterNpcsProvider(props) {
     };
 
 
+    const getMonsterById = (monsterId) => {
+        return getToken()
+            .then(token => fetch(`${apiUrl}/${monsterId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }))
+            .then(res => res.json())
+    };
+
+
+    const saveMonster = (monster) => {
+        return getToken()
+            .then(token => fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(monster),
+            }))
+            .then(resp => resp.json())
+    };
+
+
     return (
-        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters }}>
+        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster }}>
             {props.children}
         </MonsterNpcsContext.Provider>
     );

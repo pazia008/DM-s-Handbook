@@ -63,5 +63,76 @@ namespace DM_Handbook.Repositories
         }
 
 
+        public MonsterNpcs GetById(int monsterNpcId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT mn.Id, mn.UserId, mn.MonsterOrNpcTypeId, mn.Synopsis, mn.[Name], mn.Abilities, mn.DateCreated, mt.Id AS MonsterId, mt.[Name] AS MonsterOrNpc
+                            FROM MonsterNpcs mn
+                            LEFT JOIN MonsterOrNpcType mt on mn.MonsterOrNpcTypeId = mt.Id                    
+                        WHERE mn.Id = @MonsterNpcsId";
+
+                    DbUtils.AddParameter(cmd, "@MonsterNpcsId", monsterNpcId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    MonsterNpcs monster = null;
+
+                    if (reader.Read())
+                    {
+                        monster = new MonsterNpcs()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Synopsis = reader.GetString(reader.GetOrdinal("Synopsis")),
+                            Abilities = reader.GetString(reader.GetOrdinal("Abilities")),
+                            DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated")),
+                            MonsterOrNpcTypeId = reader.GetInt32(reader.GetOrdinal("MonsterOrNpcTypeId")),
+                            MonsterOrNpcTypes = new MonsterOrNpcType()
+                            {
+                                Id = DbUtils.GetInt(reader, "MonsterId"),
+                                Name = DbUtils.GetString(reader, "MonsterOrNpc"),
+                            },
+                        };
+                    }
+                    reader.Close();
+                    return monster;
+                }
+            }
+        }
+
+
+        public void Add(MonsterNpcs monster)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO MonsterNpcs (UserId, MonsterOrNpcTypeId, Name, Synopsis, Abilities, DateCreated)
+                        OUTPUT INSERTED.ID
+                        VALUES (@UserId, @MonsterOrNpcTypeId, @Name, @Synopsis, @Abilities, @DateCreated)";
+
+                    DbUtils.AddParameter(cmd, "@UserId", monster.UserId);
+                    DbUtils.AddParameter(cmd, "@MonsterOrNpcTypeId", monster.MonsterOrNpcTypeId);
+                    DbUtils.AddParameter(cmd, "@Name", monster.Name);
+                    DbUtils.AddParameter(cmd, "@Synopsis", monster.Synopsis);
+                    DbUtils.AddParameter(cmd, "@Abilities", monster.Abilities);
+                    DbUtils.AddParameter(cmd, "@DateCreated", monster.DateCreated);                    
+                    
+
+
+                    monster.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
     }
 }

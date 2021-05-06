@@ -13,6 +13,7 @@ import PlayerList from "./players/PlayerList";
 import PlayerFormAdd from "./players/PlayerAddForm"
 import PlayerEditForm from "./players/PlayerEditForm";
 import MonsterList from "./monstersAndNpcs/MonsterList";
+import MonsterFormAdd from "./monstersAndNpcs/MonsterAddForm";
 
 
 export default function ApplicationViews() {
@@ -75,6 +76,10 @@ export default function ApplicationViews() {
 
                 <Route path="/monsterNpcs" exact>
                     {isLoggedIn ? <MonsterList /> : <Redirect to="/Login" />}
+                </Route>
+
+                <Route path="/monsterNpcs/new" exact>
+                    {isLoggedIn ? <MonsterFormAdd /> : <Redirect to="/Login" />}
                 </Route>
             </Switch>
         </main>
