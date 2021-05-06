@@ -6,5 +6,6 @@ namespace DM_Handbook.Repositories
     public interface IMonsterNpcsRepository
     {
         List<MonsterNpcs> GetAllByUserId(int userId);
+        MonsterNpcs GetById(int monsterNpcId);
     }
 }

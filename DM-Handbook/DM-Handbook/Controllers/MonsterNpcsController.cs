@@ -40,6 +40,21 @@ namespace DM_Handbook.Controllers
             return Ok(userCampaigns);
         }
 
+        [HttpGet("{monsterId}")]
+        public IActionResult Get(int monsterId)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            if (currentUserProfile == null) return NotFound();
+
+            var tag = _monsterNpcsRepository.GetById(monsterId);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
+
 
         private UserProfile GetCurrentUser()
         {
