@@ -34,7 +34,7 @@ namespace DM_Handbook
             services.AddTransient<ICampaignsRepository, CampaignsRepository>();
             services.AddTransient<IPlayersRepository, PlayersRepository>();
             services.AddTransient<IMonsterNpcsRepository, MonsterNpcsRepository>();
-
+            services.AddTransient<IMonsterOrNpcTypesRepository, MonsterOrNpcTypesRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
