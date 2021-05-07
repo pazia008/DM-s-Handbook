@@ -40,6 +40,23 @@ namespace DM_Handbook.Controllers
         }
 
 
+
+        [HttpGet("{adventureNoteId}")]
+        public IActionResult Get(int adventureNoteId)
+        {
+            var currentUserProfile = GetCurrentUser();
+
+            if (currentUserProfile == null) return NotFound();
+
+            var tag = _adventureNotesRepository.GetById(adventureNoteId);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
+
+
         [HttpPost]
         public IActionResult Add(AdventureNotes adventureNotes)
         {
@@ -60,6 +77,17 @@ namespace DM_Handbook.Controllers
             if (user == null) return NotFound();
 
             _adventureNotesRepository.Delete(adventureNoteId);
+            return NoContent();
+        }
+
+
+        [HttpPut("{adventureNoteId}")]
+        public IActionResult Put(AdventureNotes adventureNote)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            _adventureNotesRepository.Update(adventureNote);
             return NoContent();
         }
 
