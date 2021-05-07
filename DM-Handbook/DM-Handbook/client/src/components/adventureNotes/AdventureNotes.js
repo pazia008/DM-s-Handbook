@@ -26,7 +26,7 @@ const AdventureNote = ({ adventureNote }) => {
                 <p>{adventureNote.synopsis}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
                 <Button type="button" onClick={() => {
-                    history.push(`/monsterNpcs/GetMonsterByAdventureId${adventureNote.id}`)
+                    history.push(`/monsterNpcs/getMonsterByAdventureId/${adventureNote.id}`)
 
                 }} className="edit-button">
                     Monsters and Npcs

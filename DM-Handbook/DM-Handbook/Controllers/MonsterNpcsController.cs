@@ -93,8 +93,8 @@ namespace DM_Handbook.Controllers
         }
 
 
-        [HttpGet("GetMonsterByAdventureId{adventureNoteId}")]
-        public IActionResult GetTagsByPostId(int adventureNoteId)
+        [HttpGet("GetMonsterByAdventureId/{adventureNoteId}")]
+        public IActionResult GetMonsterByAdventureId(int adventureNoteId)
         {
             var user = GetCurrentUser();
             if (user == null) return NotFound();
