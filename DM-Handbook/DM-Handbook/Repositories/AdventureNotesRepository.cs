@@ -22,12 +22,9 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                             SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.Id AS CampId, c.[Name], am.AdventureId, am.Id, am.MonsterNpcId, mn.[Name] AS MonsterName
+                              SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.Id AS CampId, c.[Name]
                             FROM AdventureNotes ad
                             LEFT JOIN Campaigns c ON ad.CampaignId = c.Id
-                            LEFT JOIN AdventureMonsters am ON am.Id = am.Id
-                            LEFT JOIN MonsterNpcs mn on am.MonsterNpcId = mn.Id
-                            
                             WHERE ad.UserId = @UserId
                             ORDER BY ad.DateCreated ASC";
 
@@ -35,29 +32,30 @@ namespace DM_Handbook.Repositories
                     DbUtils.AddParameter(cmd, "@UserId", userId);
 
                     var reader = cmd.ExecuteReader();
+        
 
                     var adventureNotes = new List<AdventureNotes>();
 
                     while (reader.Read())
                     {
-                        var adventureNote = new AdventureNotes()
-                        {
-                            Id = DbUtils.GetInt(reader, "AdventureNoteId"),
-                            UserId = DbUtils.GetInt(reader, "UserId"),
-                            Synopsis = DbUtils.GetNullableString(reader, "Synopsis"),
-                            DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
-                            CampaignId = DbUtils.GetInt(reader, "CampaignId"),
-                            Campaigns = new Campaigns()
+                        
+                           var adventureNote = new AdventureNotes()
                             {
-                                Id = DbUtils.GetInt(reader, "CampId"),
-                                Name = DbUtils.GetString(reader, "Name"),
-                            },
-                            MonsterNpcs = new List<MonsterNpcs>() 
-                            { 
-
-                            }
+                                Id = DbUtils.GetInt(reader, "AdventureNoteId"),
+                                UserId = DbUtils.GetInt(reader, "UserId"),
+                                Synopsis = DbUtils.GetNullableString(reader, "Synopsis"),
+                                DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                                CampaignId = DbUtils.GetInt(reader, "CampaignId"),
+                                Campaigns = new Campaigns()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CampId"),
+                                    Name = DbUtils.GetString(reader, "Name"),
+                                },
+         
+                            };
                            
-                        };
+                  
+
                         adventureNotes.Add(adventureNote);
                     }
 
@@ -69,8 +67,48 @@ namespace DM_Handbook.Repositories
                
             }
         }
-    
 
+
+        public AdventureNotes GetById(int adventureNoteId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.Id AS CampId, c.[Name]
+                            FROM AdventureNotes ad
+                            LEFT JOIN Campaigns c ON ad.CampaignId = c.Id
+                            WHERE ad.Id = @AdventureNotesid";
+
+                    DbUtils.AddParameter(cmd, "@AdventureNotesId", adventureNoteId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    AdventureNotes adventureNotes = null;
+
+                    if (reader.Read())
+                    {
+                        adventureNotes = new AdventureNotes()
+                        {
+                            Id = DbUtils.GetInt(reader, "AdventureNoteId"),
+                            UserId = DbUtils.GetInt(reader, "UserId"),
+                            Synopsis = DbUtils.GetNullableString(reader, "Synopsis"),
+                            DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                            CampaignId = DbUtils.GetInt(reader, "CampaignId"),
+                            Campaigns = new Campaigns()
+                            {
+                                Id = DbUtils.GetInt(reader, "CampId"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                            },
+                        };
+                    }
+                    reader.Close();
+                    return adventureNotes;
+                }
+            }
+        }
 
 
 
@@ -96,6 +134,51 @@ namespace DM_Handbook.Repositories
             }
         }
 
+
+
+
+        public void Delete(int adventureNoteId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE AdventureNotes
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", adventureNoteId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+        public void Update(AdventureNotes adventureNote)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE AdventureNotes
+                           SET CampaignId = @CampaignId,                       
+                            Synopsis = @Synopsis,
+                            DateCreated = @DateCreated
+                             WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", adventureNote.Id);
+                    DbUtils.AddParameter(cmd, "@CampaignId", adventureNote.CampaignId);
+                    DbUtils.AddParameter(cmd, "@Synopsis", adventureNote.Synopsis);
+                    DbUtils.AddParameter(cmd, "@DateCreated", adventureNote.DateCreated);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
 
