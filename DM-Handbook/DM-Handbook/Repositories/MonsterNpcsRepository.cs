@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DM_Handbook.Models;
 using DM_Handbook.Utils;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace DM_Handbook.Repositories
@@ -178,6 +179,54 @@ namespace DM_Handbook.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+
+        public List<MonsterNpcs> GetMonsterByAdventureId(int adventureNoteId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT mn.Id, mn.UserId, mn.MonsterOrNpcTypeId, mn.[Name], am.Id AS AdventureMonsterId, am.AdventureId, am.MonsterNpcId
+                        FROM  MonsterNpcs mn
+                         LEFT JOIN AdventureMonsters am on mn.Id = am.Id
+                        WHERE am.AdventureId = @AdventureId ";
+
+                    cmd.Parameters.AddWithValue("@AdventureId", adventureNoteId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    List<MonsterNpcs> monsters = new List<MonsterNpcs>();
+
+                    while (reader.Read())
+                    {
+                        monsters.Add(NewMonsterFromReader(reader));
+
+                    }
+
+                    reader.Close();
+                    return monsters;
+                }
+            }
+        }
+
+
+        private MonsterNpcs NewMonsterFromReader(SqlDataReader reader)
+        {
+            return new MonsterNpcs()
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                Name = reader.GetString(reader.GetOrdinal("Name")),
+                AdventureMonsters = new AdventureMonsters()
+                {
+                    Id = DbUtils.GetInt(reader, "AdventureMonsterId"),
+
+
+                },
+            };
         }
 
 

@@ -93,6 +93,21 @@ namespace DM_Handbook.Controllers
         }
 
 
+        [HttpGet("GetMonsterByAdventureId{adventureNoteId}")]
+        public IActionResult GetTagsByPostId(int adventureNoteId)
+        {
+            var user = GetCurrentUser();
+            if (user == null) return NotFound();
+
+            var tag = _monsterNpcsRepository.GetMonsterByAdventureId(adventureNoteId);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
+
+
         private UserProfile GetCurrentUser()
         {
             var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

@@ -30,5 +30,9 @@ namespace DM_Handbook.Models
 
         public MonsterOrNpcType MonsterOrNpcTypes { get; set; }
 
+        public AdventureMonsters AdventureMonsters { get; set; }
+
+        
+
     }
 }
