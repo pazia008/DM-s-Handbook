@@ -25,6 +25,9 @@ const AdventureNote = ({ adventureNote }) => {
                 <h2>{adventureNote.campaigns.name}</h2>
                 <p>{adventureNote.synopsis}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
+                <Link to="/adventureNotes/monsterNpcs" className="nav-link">
+                    View Monsters
+            </Link>
 
             </CardHeader>
 
