@@ -9,21 +9,11 @@ import AdventureNote from "./AdventureNotes";
 
 
 const AdventureMonstersAndNpcs = () => {
-    const [adventure, setAdventure] = useState({
-        // userProfile: {},
-    });
 
-    const { getAdventureNoteById } = useContext(AdventureNotesContext);
+    // follow postTag.js in tabloid and try to implement that instead of pots details
+
     const { getMonstersByAdventureId, monstersOnAdventure } = useContext(MonsterNpcsContext);
     const { id } = useParams();
-
-    // useEffect(() => {
-    //     getAdventureNoteById(id).then((response) => {
-    //         setAdventure(response);
-    //     });
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
     const manageMonsters = (adventure) => {
         let currentUser = JSON.parse(sessionStorage.getItem("userProfile"));
         console.log(adventure.userProfile)
