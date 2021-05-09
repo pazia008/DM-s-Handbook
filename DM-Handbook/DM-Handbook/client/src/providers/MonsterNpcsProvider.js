@@ -6,6 +6,7 @@ export const MonsterNpcsContext = createContext();
 
 export function MonsterNpcsProvider(props) {
     const [monsters, setMonsters] = useState([]);
+    const [monstersOnAdventure, setMonstersOnAdventure] = useState([]);
     const { getToken } = useContext(UserProfilesContext);
     const apiUrl = "/api/monsterNpcs";
 
@@ -74,8 +75,23 @@ export function MonsterNpcsProvider(props) {
     };
 
 
+    const getMonstersByAdventureId = (adventureNoteId) => {
+        return getToken().then((token) =>
+            fetch(`/api/monsterNpcs/getMonsterByAdventureId/${adventureNoteId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => res.json())
+                .then(setMonsters)
+        );
+    };
+
+
+
     return (
-        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster, updateMonster }}>
+        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster, updateMonster, getMonstersByAdventureId, monstersOnAdventure }}>
             {props.children}
         </MonsterNpcsContext.Provider>
     );

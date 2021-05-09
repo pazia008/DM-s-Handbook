@@ -25,6 +25,12 @@ const AdventureNote = ({ adventureNote }) => {
                 <h2>{adventureNote.campaigns.name}</h2>
                 <p>{adventureNote.synopsis}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>
+                <Button type="button" onClick={() => {
+                    history.push(`/monsterNpcs/getMonsterByAdventureId/${adventureNote.id}`)
+
+                }} className="edit-button">
+                    Monsters and Npcs
+                    </Button>
 
             </CardHeader>
 

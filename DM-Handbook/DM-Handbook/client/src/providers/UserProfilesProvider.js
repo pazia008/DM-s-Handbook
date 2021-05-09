@@ -26,8 +26,8 @@ export function UserProfilesProvider(props) {
             .auth()
             .signInWithEmailAndPassword(email, pw)
             .then((signInResponse) => getUserProfile(signInResponse.user.uid))
-            .then((userProfiles) => {
-                sessionStorage.setItem("s", JSON.stringify(userProfiles));
+            .then((userProfile) => {
+                sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
                 setIsLoggedIn(true);
             });
     };

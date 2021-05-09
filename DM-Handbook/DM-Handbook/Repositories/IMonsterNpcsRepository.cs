@@ -10,5 +10,7 @@ namespace DM_Handbook.Repositories
         void Add(MonsterNpcs monster);
         void Delete(int monsterNpcId);
         void Update(MonsterNpcs monster);
+        List<MonsterNpcs> GetMonsterByAdventureId(int adventureNoteId);
+        
     }
 }

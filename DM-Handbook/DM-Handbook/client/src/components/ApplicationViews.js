@@ -16,6 +16,7 @@ import MonsterList from "./monstersAndNpcs/MonsterList";
 import MonsterFormAdd from "./monstersAndNpcs/MonsterAddForm";
 import MonsterEditForm from "./monstersAndNpcs/MonsterEditForm";
 import AdventureEditForm from "./adventureNotes/AdventureNoteEditForm";
+import AdventureMonstersAndNpcs from "./adventureNotes/AdventuresMonstersAndNpcs";
 
 
 export default function ApplicationViews() {
@@ -48,6 +49,10 @@ export default function ApplicationViews() {
 
                 <Route path="/adventureNotes/edit/:adventureNoteId" exact>
                     {isLoggedIn ? <AdventureEditForm /> : <Redirect to="/Login" />}
+                </Route>
+
+                <Route path="/monsterNpcs/getMonsterByAdventureId/:adventureNoteId" exact>
+                    {isLoggedIn ? <AdventureMonstersAndNpcs /> : <Redirect to="/login" />}
                 </Route>
 
                 {/* Campaign Links */}
