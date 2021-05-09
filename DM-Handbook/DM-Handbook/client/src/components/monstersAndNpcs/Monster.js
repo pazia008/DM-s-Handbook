@@ -22,12 +22,12 @@ const Monster = ({ monsterNpc }) => {
 
     const history = useHistory();
 
-
+    // the question mark helps with handling null information
     return (
         <Card className="m-2 shadow postCard">
             <CardHeader>
                 <h2>{monsterNpc.name}</h2>
-                <h4>Monster Or Npc: {monsterNpc.monsterOrNpcTypes.name}</h4>
+                <h4>Monster Or Npc: {monsterNpc.monsterOrNpcTypes?.name}</h4>
                 <p>Synopsis: {monsterNpc.synopsis}</p>
                 <p>Abilities: {monsterNpc.abilities}</p>
                 <div>{date.toLocaleDateString('en-US')}</div>

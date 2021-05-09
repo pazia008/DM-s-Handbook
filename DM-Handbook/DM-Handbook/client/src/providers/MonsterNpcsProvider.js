@@ -84,7 +84,7 @@ export function MonsterNpcsProvider(props) {
                 },
             })
                 .then((res) => res.json())
-                .then(setMonstersOnAdventure)
+                .then(setMonsters)
         );
     };
 
