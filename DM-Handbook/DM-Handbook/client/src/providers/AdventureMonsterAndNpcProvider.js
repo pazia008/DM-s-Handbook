@@ -1,10 +1,10 @@
 import React, { useState, createContext, useContext } from "react";
-import { UserProfileContext } from "./UserProfileProvider";
 import "firebase/auth";
+import { UserProfilesContext } from "./UserProfilesProvider";
 export const AdventureMonsterContext = createContext();
 
 export const AdventureMonsterProvider = (props) => {
-    const { getToken } = useContext(UserProfileContext);
+    const { getToken } = useContext(UserProfilesContext);
     const [adventureMonsters, setAdventureMonsters] = useState([]);
 
     const addAdventureMonsters = (adventureMonster) => {

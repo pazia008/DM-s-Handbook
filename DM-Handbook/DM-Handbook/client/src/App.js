@@ -8,6 +8,7 @@ import { CampaignsProvider } from "./providers/CampaignsProvider";
 import { PlayersProvider } from "./providers/PlayersProvider";
 import { MonsterNpcsProvider } from "./providers/MonsterNpcsProvider";
 import { MonsterOrNpcTypesProvider } from "./providers/MonsterOrNpcTypeProvider";
+import { AdventureMonsterProvider } from "./providers/AdventureMonsterAndNpcProvider";
 
 function App() {
 
@@ -19,8 +20,10 @@ function App() {
             <PlayersProvider>
               <MonsterNpcsProvider>
                 <MonsterOrNpcTypesProvider>
-                  <Header />
-                  <ApplicationViews />
+                  <AdventureMonsterProvider>
+                    <Header />
+                    <ApplicationViews />
+                  </AdventureMonsterProvider>
                 </MonsterOrNpcTypesProvider>
               </MonsterNpcsProvider>
             </PlayersProvider>
