@@ -22,10 +22,11 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                              SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, c.Id AS CampId, c.[Name]
+                              SELECT ad.Id AS AdventureNoteId, ad.UserId, ad.CampaignId, ad.Synopsis, ad.DateCreated, ad.DateDeleted, c.Id AS CampId, c.[Name]
                             FROM AdventureNotes ad
                             LEFT JOIN Campaigns c ON ad.CampaignId = c.Id
-                            WHERE ad.UserId = @UserId
+                            WHERE ad.UserId = @UserId AND ad.DateDeleted IS NULL
+                            
                             ORDER BY ad.DateCreated ASC";
 
                     DbUtils.AddParameter(cmd, "@currentDate", DateTime.Now);
@@ -136,7 +137,6 @@ namespace DM_Handbook.Repositories
 
 
 
-
         public void Delete(int adventureNoteId)
         {
             using (var conn = Connection)
@@ -144,11 +144,11 @@ namespace DM_Handbook.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"
-                        DELETE AdventureNotes
-                        WHERE Id = @Id";
-
+                    cmd.CommandText = @"UPDATE AdventureNotes
+                                        SET DateDeleted = @dateDeleted
+                                        WHERE Id = @Id;";
                     DbUtils.AddParameter(cmd, "@Id", adventureNoteId);
+                    DbUtils.AddParameter(cmd, "@dateDeleted", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
             }
