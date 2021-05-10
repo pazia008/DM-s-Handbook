@@ -18,10 +18,13 @@ const AdventureMonstersAndNpcs = () => {
 
     }, []);
 
+
+
+
     return (
         <Container>
             <Row className="justify-content-md-center">
-                <Link to="/adventureMonsters/new" className="nav-link">
+                <Link to={`/adventureMonsters/new/${adventureNoteId}`} className="nav-link">
                     Manage Monsters and Npcs
             </Link>
             </Row>

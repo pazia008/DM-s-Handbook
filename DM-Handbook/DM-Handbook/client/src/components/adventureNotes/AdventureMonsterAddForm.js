@@ -19,30 +19,40 @@ export const AdventureMonsterForm = () => {
 
     const handleControlledInputChange = (event) => {
         console.log(adventureNoteId);
-        const newAdventureMonster = { ...adventureMonsters };
-        newAdventureMonster.monsterId = adventureMonsters;
-        newAdventureMonster.adventureNoteId = adventureNoteId;
+        // const newAdventureMonster = { ...adventureMonsters };
+        // newAdventureMonster.monsterId = adventureMonsters;
+        // newAdventureMonster.adventureNoteId = adventureNoteId;
 
-        addAdventureMonsters(newAdventureMonster).then(() => {
+        addAdventureMonsters({
+            adventureId: adventureNoteId,
+            monsterNpcId: adventureMonsters
+        }).then(() => {
             history.go(0);
         });
     };
 
     useEffect(() => {
-        getAllMonsters();
+        getAllMonsters()
+        // .then(getMonstersByAdventureId(adventureNoteId))
+        // .then(() => {
+        //     console.log(monsters)
+        //     setAvailableMonsters(monsters.filter(
+        //         ({ id: t }) => !monstersOnAdventure.some(({ id: tg }) => tg === t)
+        //     ))
+        // })
     }, []);
 
-    useEffect(() => {
-        getMonstersByAdventureId(adventureNoteId);
-    }, [monsters]);
+    // useEffect(() => {
+    //     getMonstersByAdventureId(adventureNoteId);
+    // }, []);
 
-    useEffect(() => {
-        const result = monsters.filter(
-            ({ id: t }) => !monstersOnAdventure.some(({ id: tg }) => tg === t)
-        );
+    // useEffect(() => {
+    //     const result = monsters.filter(
+    //         ({ id: t }) => !monstersOnAdventure.some(({ id: tg }) => tg === t)
+    //     );
 
-        setAvailableMonsters(result);
-    }, [monstersOnAdventure]);
+    //     setAvailableMonsters(result);
+    // }, [monstersOnAdventure]);
 
     return (
         <form className="adventureMonsterForm">
@@ -60,7 +70,7 @@ export const AdventureMonsterForm = () => {
                     <Label for="adventureMonster">Add a Monster or Npc </Label>
                     <select id="adventureMonster" onChange={(e) => setAdventureMonsters(e.target.value)}>
                         <option value="0">Select a Monster Or Npc </option>
-                        {availableMonsters.map((t) => (
+                        {monsters.map((t) => (
                             <option key={t.id} value={t.id}>
                                 {t.name}
                             </option>

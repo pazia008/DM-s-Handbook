@@ -100,7 +100,7 @@ export default function ApplicationViews() {
 
                 {/* Adventure Monster Links */}
 
-                <Route path="/adventureMonsters/new" exact>
+                <Route path="/adventureMonsters/new/:adventureNoteId" exact>
                     {isLoggedIn ? <AdventureMonsterForm /> : <Redirect to="/login" />}
                 </Route>
             </Switch>
