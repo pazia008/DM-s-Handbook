@@ -14,7 +14,6 @@ export const AdventureMonsterForm = () => {
     const { adventureNoteId } = useParams();
     const handleControlledInputChange = (event) => {
         console.log(adventureNoteId);
-
         addAdventureMonsters({
             adventureId: adventureNoteId,
             monsterNpcId: adventureMonsters

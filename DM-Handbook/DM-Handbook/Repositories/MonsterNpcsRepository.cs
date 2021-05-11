@@ -191,9 +191,11 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT mn.Id, mn.UserId, mn.MonsterOrNpcTypeId, mn.[Name], am.Id AS AdventureMonsterId, am.AdventureId, am.MonsterNpcId
-                        FROM  MonsterNpcs mn
-                         LEFT JOIN AdventureMonsters am on mn.Id = am.Id
+                        SELECT am.Id AS AdventureMonsterId, am.AdventureId, am.MonsterNpcId, mn.Id AS MonsterId, mn.MonsterOrNpcTypeId, mn.[Name] AS MonsterName, mn.Synopsis, mn.Abilities, mn.DateCreated, mt.[Name] AS MonsterType, a.Id AS AdventureNoteId
+                         FROM AdventureMonsters am
+                         JOIN MonsterNpcs mn on am.MonsterNpcId = mn.Id
+                         JOIN MonsterOrNpcType mt on mn.MonsterOrNpcTypeId = mt.Id
+                         JOIN AdventureNotes a on am.AdventureId = a.Id
                         WHERE am.AdventureId = @AdventureId ";
 
                     cmd.Parameters.AddWithValue("@AdventureId", adventureNoteId);
@@ -219,8 +221,8 @@ namespace DM_Handbook.Repositories
         {
             return new MonsterNpcs()
             {
-                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                Name = reader.GetString(reader.GetOrdinal("Name")),
+                Id = reader.GetInt32(reader.GetOrdinal("MonsterId")),
+                Name = reader.GetString(reader.GetOrdinal("MonsterName")),
                 AdventureMonsters = new AdventureMonsters()
                 {
                     Id = DbUtils.GetInt(reader, "AdventureMonsterId"),
