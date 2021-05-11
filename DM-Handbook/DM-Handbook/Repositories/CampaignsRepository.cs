@@ -22,9 +22,9 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT c.Id, c.UserId, c.[Name]
+                            SELECT c.Id, c.UserId, c.[Name], c.DateDeleted
                             FROM Campaigns c
-                            WHERE c.UserId = @UserId";
+                            WHERE c.UserId = @UserId AND c.DateDeleted IS NULL";
 
 
                     DbUtils.AddParameter(cmd, "@UserId", userId);
@@ -117,11 +117,11 @@ namespace DM_Handbook.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"
-                        DELETE Campaigns
-                        WHERE Id = @Id";
-
+                    cmd.CommandText = @"UPDATE Campaigns
+                                        SET DateDeleted = @DateDeleted
+                                        WHERE Id = @Id;";
                     DbUtils.AddParameter(cmd, "@Id", campaignId);
+                    DbUtils.AddParameter(cmd, "@DateDeleted", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
             }
