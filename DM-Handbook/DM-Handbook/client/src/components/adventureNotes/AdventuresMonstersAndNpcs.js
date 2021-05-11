@@ -6,20 +6,14 @@ import { MonsterNpcsContext } from "../../providers/MonsterNpcsProvider";
 import Monster from "../monstersAndNpcs/Monster";
 import AdventureNote from "./AdventureNotes";
 import { Container, Row, Col } from "reactstrap";
-
+import AdventureMonster from "./AdventureMonster";
 
 const AdventureMonstersAndNpcs = () => {
     const { adventureNoteId } = useParams();
     const { monsters, getMonstersByAdventureId } = useContext(MonsterNpcsContext);
-
-
     useEffect(() => {
         getMonstersByAdventureId(parseInt(adventureNoteId))
-
     }, []);
-
-
-
     console.log(monsters)
     return (
         <Container>
@@ -33,14 +27,11 @@ const AdventureMonstersAndNpcs = () => {
             <Row>
                 {monsters.map((m) => {
                     console.log(m); return (
-
-                        <Col md="4"><Monster key={m.id} monsterNpc={m} /></Col>
+                        <Col md="4"><AdventureMonster key={m.id} monsterNpc={m} /></Col>
                     )
                 })}
             </Row>
         </Container>
     );
-
 };
-
 export default AdventureMonstersAndNpcs;
