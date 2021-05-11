@@ -23,10 +23,10 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT mn.Id, mn.UserId, mn.MonsterOrNpcTypeId, mn.Synopsis, mn.[Name], mn.Abilities, mn.DateCreated, mt.Id AS MonsterId, mt.[Name] AS MonsterOrNpc
+                            SELECT mn.Id, mn.UserId, mn.MonsterOrNpcTypeId, mn.Synopsis, mn.[Name], mn.Abilities, mn.DateCreated, mn.DateDeleted, mt.Id AS MonsterId, mt.[Name] AS MonsterOrNpc
                             FROM MonsterNpcs mn
                             LEFT JOIN MonsterOrNpcType mt on mn.MonsterOrNpcTypeId = mt.Id
-                            WHERE mn.UserId = @UserId
+                            WHERE mn.UserId = @UserId AND mn.DateDeleted IS NULL
                             ORDER BY mn.DateCreated ASC";
 
 
@@ -134,7 +134,7 @@ namespace DM_Handbook.Repositories
             }
         }
 
-
+       
         public void Delete(int monsterNpcId)
         {
             using (var conn = Connection)
@@ -143,10 +143,11 @@ namespace DM_Handbook.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        DELETE MonsterNpcs
-                        WHERE Id = @Id";
-
+                                        UPDATE MonsterNpcs
+                                        SET DateDeleted = @DateDeleted
+                                        WHERE Id = @Id;";
                     DbUtils.AddParameter(cmd, "@Id", monsterNpcId);
+                    DbUtils.AddParameter(cmd, "@DateDeleted", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
             }

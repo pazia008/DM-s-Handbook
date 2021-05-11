@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DM_Handbook.Repositories
 {
-    public class AdventureMonstersRepository : BaseRepository
+    public class AdventureMonstersRepository : BaseRepository, IAdventureMonstersRepository
     {
 
         public AdventureMonstersRepository(IConfiguration configuration) : base(configuration) { }

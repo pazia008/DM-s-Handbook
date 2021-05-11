@@ -91,7 +91,7 @@ export function MonsterNpcsProvider(props) {
 
 
     return (
-        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster, updateMonster, getMonstersByAdventureId, monstersOnAdventure }}>
+        <MonsterNpcsContext.Provider value={{ monsters, setMonsters, getAllMonsters, getMonsterById, saveMonster, deleteMonster, updateMonster, getMonstersByAdventureId, monstersOnAdventure, setMonstersOnAdventure }}>
             {props.children}
         </MonsterNpcsContext.Provider>
     );
