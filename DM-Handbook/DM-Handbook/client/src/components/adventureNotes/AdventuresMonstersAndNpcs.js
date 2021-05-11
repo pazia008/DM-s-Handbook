@@ -14,13 +14,13 @@ const AdventureMonstersAndNpcs = () => {
 
 
     useEffect(() => {
-        getMonstersByAdventureId(adventureNoteId)
+        getMonstersByAdventureId(parseInt(adventureNoteId))
 
     }, []);
 
 
 
-
+    console.log(monsters)
     return (
         <Container>
             <Row className="justify-content-md-center">
