@@ -11,10 +11,16 @@ import AdventureMonster from "./AdventureMonster";
 const AdventureMonstersAndNpcs = () => {
     const { adventureNoteId } = useParams();
     const { monsters, getMonstersByAdventureId } = useContext(MonsterNpcsContext);
+
+    //gets monsters by the adventure id
     useEffect(() => {
         getMonstersByAdventureId(parseInt(adventureNoteId))
     }, []);
+
+    //used for debugging
     console.log(monsters)
+
+    //returns the list of monsters and mpcs associated with an adventure note
     return (
         <Container>
             <Row className="justify-content-md-center">

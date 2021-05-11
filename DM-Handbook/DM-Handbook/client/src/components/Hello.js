@@ -10,6 +10,6 @@ export default function Hello() {
             top: "50%",
             marginTop: "-0.5rem",
             textAlign: "center",
-        }}>Hello!</span>
+        }}>May the dice roll forever in your favor!</span>
     );
 }

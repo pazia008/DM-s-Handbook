@@ -7,11 +7,13 @@ import AdventureNote from "./AdventureNotes";
 const AdventureNotesList = () => {
     const { adventureNotes, getAllAdventureNotes } = useContext(AdventureNotesContext);
 
+    //gets all notes
     useEffect(() => {
         getAllAdventureNotes();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
+    //creates the list of all the adventure notes made by the current user
     return (
         <Container>
             <Row className="justify-content-md-center">

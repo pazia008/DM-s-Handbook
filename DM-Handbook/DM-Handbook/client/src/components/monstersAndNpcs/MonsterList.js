@@ -9,11 +9,13 @@ import Monster from "./Monster";
 const MonsterList = () => {
     const { monsters, getAllMonsters } = useContext(MonsterNpcsContext);
 
+    //gets all monsters
     useEffect(() => {
         getAllMonsters()
 
     }, []);
 
+    //creates the list of all the monsters and npcs made by the current user
     return (
         <Container>
             <Row className="justify-content-md-center">

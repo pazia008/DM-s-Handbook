@@ -12,6 +12,8 @@ const PlayerEditForm = () => {
     const { updatePlayer, getPlayerById } = useContext(PlayersContext);
     const { getAllCampaigns, campaigns } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [player, setPlayer] = useState({
         userId: 0,
         campaignId: 0,
@@ -21,12 +23,15 @@ const PlayerEditForm = () => {
         dateCreated: "",
     });
 
+    //gets players by their id
+    //takes the response and updates the state of player
     useEffect(() => {
         getPlayerById(playerId)
             .then(resp => setPlayer(resp))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    //gets all campaigns
     useEffect(() => {
         getAllCampaigns();
     }, []);
@@ -53,9 +58,11 @@ const PlayerEditForm = () => {
             dateCreated: player.dateCreated,
 
         })
+            //pushes back to the list of players
             .then(() => history.push(`/players`));
     }
 
+    //edit form for users to fill out
     return (
         <>
 

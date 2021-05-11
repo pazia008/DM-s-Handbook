@@ -8,11 +8,14 @@ import Player from "./Player";
 const PlayerList = () => {
     const { players, getAllPlayers } = useContext(PlayersContext);
 
+    //gets all players
     useEffect(() => {
         getAllPlayers()
 
     }, []);
 
+
+    //creates the list of all the players made by the current user
     return (
         <Container>
             <Row className="justify-content-md-center">

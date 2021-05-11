@@ -8,12 +8,20 @@ export const AdventureMonsterForm = () => {
     const { getAllMonsters, monsters, setMonsters, getMonstersByAdventureId, monstersOnAdventure } = useContext(
         MonsterNpcsContext
     );
+
+    //sets the state to an empty string 
     const [adventureMonsters, setAdventureMonsters] = useState("");
     const [availableMonsters, setAvailableMonsters] = useState([]);
+
     const history = useHistory();
+
+    //url parameter
     const { adventureNoteId } = useParams();
+
     const handleControlledInputChange = (event) => {
+        //for debugging purposes to make sure I was getting the right Id
         console.log(adventureNoteId);
+        //uses the add function and sets the state, then refreshes the page
         addAdventureMonsters({
             adventureId: adventureNoteId,
             monsterNpcId: adventureMonsters
@@ -21,11 +29,15 @@ export const AdventureMonsterForm = () => {
             history.go(0);
         });
     };
+
+    //gets all the monsters
     useEffect(() => {
         getAllMonsters()
 
     }, []);
 
+
+    //will return a dropdown so users can add monsters to a note
     return (
         <form className="adventureMonsterForm">
             <Button

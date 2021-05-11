@@ -10,6 +10,8 @@ const MonsterFormAdd = () => {
     const { saveMonster, getAllMonsters } = useContext(MonsterNpcsContext);
     const { getAllMonsterTypes, monsterTypes } = useContext(MonsterOrNpcTypesContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [monster, setMonster] = useState({
         userId: 0,
         monsterOrNpcTypeId: 0,
@@ -36,24 +38,26 @@ const MonsterFormAdd = () => {
         setMonster(newMonster);
     };
 
+    //gets all monsters
     useEffect(() => {
         getAllMonsters();
     }, []);
 
+    //gets all monster types
     useEffect(() => {
         getAllMonsterTypes();
     }, []);
 
     const handleClickSaveMonster = () => {
 
-
+        //adds to the database
         const monsterOrNpcTypeId = parseInt(monster.monsterOrNpcTypeId);
         const name = monster.name;
         const synopsis = monster.synopsis;
         const abilities = monster.abilities;
         const dateCreated = monster.dateCreated;
 
-
+        //pop-up windows if a user leaves fields blank
         if (name === "") {
             window.alert("Make sure to write their name!");
         } else if (dateCreated === "") {
@@ -78,10 +82,13 @@ const MonsterFormAdd = () => {
                 abilities: monster.abilities,
                 dateCreated: monster.dateCreated,
             })
+                //pushes back to the list of monsters and npcs
                 .then(() => history.push("/monsterNpcs"));
         }
     };
 
+
+    //form users will fill out
     return (
         <>
             <form className="Form">

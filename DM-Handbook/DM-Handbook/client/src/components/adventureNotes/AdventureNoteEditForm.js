@@ -13,6 +13,8 @@ const AdventureEditForm = () => {
     const { updateAdventureNote, getAdventureNoteById } = useContext(AdventureNotesContext);
     const { getAllCampaigns, campaigns } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [adventureNote, setAdventureNote] = useState({
         userId: 0,
         campaignId: 0,
@@ -20,17 +22,19 @@ const AdventureEditForm = () => {
         dateCreated: "",
     });
 
+    //gets notes by their Id
+    //takes the response and updates the state of adventureNote
     useEffect(() => {
         getAdventureNoteById(adventureNoteId)
             .then(resp => setAdventureNote(resp))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    //gets all campaigns
     useEffect(() => {
         getAllCampaigns();
     }, []);
 
-    // Handles updating the state of Player
+    // Handles updating the state of AdventureNotes
     const handleInput = (e) => {
         const newAdventureNote = { ...adventureNote };
         newAdventureNote[e.target.id] = e.target.value;
@@ -50,9 +54,11 @@ const AdventureEditForm = () => {
             dateCreated: adventureNote.dateCreated,
 
         })
+            //pushes back to the list of notes
             .then(() => history.push(`/adventureNotes`));
     }
 
+    //the edit form for users
     return (
         <>
 

@@ -23,6 +23,8 @@ import AdventureMonsterForm from "./adventureNotes/AdventureMonsterAddForm";
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(UserProfilesContext);
 
+    // more specific links in my web app that gerts users to different modules and forms
+
     return (
         <main>
             <Switch>

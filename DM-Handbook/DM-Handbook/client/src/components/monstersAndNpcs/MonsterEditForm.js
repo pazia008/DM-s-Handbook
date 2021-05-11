@@ -13,6 +13,8 @@ const MonsterEditForm = () => {
     const { updateMonster, getMonsterById } = useContext(MonsterNpcsContext);
     const { getAllMonsterTypes, monsterTypes } = useContext(MonsterOrNpcTypesContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [monster, setMonster] = useState({
         userId: 0,
         monsterOrNpcTypeId: 0,
@@ -22,12 +24,16 @@ const MonsterEditForm = () => {
         dateCreated: "",
     });
 
+
+    //gets mosters by Id
+    //takes the response and updates the state of monster
     useEffect(() => {
         getMonsterById(monsterId)
             .then(resp => setMonster(resp))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    //gets all momster types
     useEffect(() => {
         getAllMonsterTypes();
     }, []);
@@ -54,9 +60,11 @@ const MonsterEditForm = () => {
             dateCreated: monster.dateCreated,
 
         })
+            //pushes to the list of monsters and npcs
             .then(() => history.push(`/monsterNpcs`));
     }
 
+    //edit form users will fill out
     return (
         <>
 
