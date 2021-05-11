@@ -6,90 +6,83 @@ import { AdventureMonsterContext } from "../../providers/AdventureMonsterAndNpcP
 
 
 export const AdventureMonsterForm = () => {
-    const { addAdventureMonsters } = useContext(AdventureMonsterContext);
-    const { getAllMonsters, monsters, setMonsters, getMonstersByAdventureId, monstersOnAdventure } = useContext(
-        MonsterNpcsContext
-    );
+    const { addAdventureMonsters, adventureMonsters } = useContext(AdventureMonsterContext);
+    const { getAllMonsters, monsters, getMonstersByAdventureId } = useContext(MonsterNpcsContext);
 
-    const [adventureMonsters, setAdventureMonsters] = useState("");
-
-    const [availableMonsters, setAvailableMonsters] = useState([]);
     const history = useHistory();
     const { adventureNoteId } = useParams();
 
-    const handleControlledInputChange = (event) => {
-        console.log(adventureNoteId);
-        // const newAdventureMonster = { ...adventureMonsters };
-        // newAdventureMonster.monsterId = adventureMonsters;
-        // newAdventureMonster.adventureNoteId = adventureNoteId;
-
-        addAdventureMonsters({
-            adventureId: adventureNoteId,
-            monsterNpcId: adventureMonsters
-        }).then(() => {
-            history.go(0);
-        });
-    };
-
     useEffect(() => {
         getAllMonsters()
-        // .then(getMonstersByAdventureId(adventureNoteId))
-        // .then(() => {
-        //     console.log(monsters)
-        //     setAvailableMonsters(monsters.filter(
-        //         ({ id: t }) => !monstersOnAdventure.some(({ id: tg }) => tg === t)
-        //     ))
-        // })
+            .then(() => {
+                getMonstersByAdventureId(adventureNoteId)
+            })
     }, []);
 
-    // useEffect(() => {
-    //     getMonstersByAdventureId(adventureNoteId);
-    // }, []);
+    const handleControlledInputChange = (event) => {
 
-    // useEffect(() => {
-    //     const result = monsters.filter(
-    //         ({ id: t }) => !monstersOnAdventure.some(({ id: tg }) => tg === t)
-    //     );
 
-    //     setAvailableMonsters(result);
-    // }, [monstersOnAdventure]);
+        var checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        let arrayOfMonsters = Array.from(checkedBoxes).map(c => c.defaultValue);
+
+        let monsterIds = arrayOfMonsters.map(m => {
+            return parseInt(m)
+        })
+
+
+        addAdventureMonsters(monsterIds, parseInt(adventureNoteId))
+            .then(() => {
+                monsters.map(m => {
+                    return m.checked = false
+                })
+            })
+            .then(() => {
+                history.go(0);
+            });
+
+    };
+
 
     return (
-        <form className="adventureMonsterForm">
+        <Form className="container col-md-6">
+            <h2>Add monsters and npcs to your adventure!</h2>
+
+            {
+                monsters.map(m => {
+
+                    adventureMonsters.find(am => {
+                        if (am.monsterNpcId === am.id) {
+                            return m.checked = true
+                        }
+                    })
+
+                    if (m.checked) {
+                        return <FormGroup key={m.id} check>
+                            <Label check>
+                                <Input type="checkbox" id={m.id} value={m.id} defaultChecked /> {m.name}
+                            </Label>
+                        </FormGroup>
+                    } else {
+                        return <FormGroup key={m.id} check>
+                            <Label check>
+                                <Input type="checkbox" id={m.id} value={m.id} /> {m.name}
+                            </Label>
+                        </FormGroup>
+                    }
+                })
+            }
             <Button
-                className="back_button"
-                onClick={() => {
-                    history.goBack();
-                }}
-            >
-                Back
-      </Button>
-
-            <div className="form_background">
-                <FormGroup>
-                    <Label for="adventureMonster">Add a Monster or Npc </Label>
-                    <select id="adventureMonster" onChange={(e) => setAdventureMonsters(e.target.value)}>
-                        <option value="0">Select a Monster Or Npc </option>
-                        {monsters.map((t) => (
-                            <option key={t.id} value={t.id}>
-                                {t.name}
-                            </option>
-                        ))}
-                    </select>
-                </FormGroup>
-
-                <Button
-                    variant="secondary"
-                    style={{
-                        color: "black",
-                    }}
-                    className="add_button"
-                    onClick={handleControlledInputChange}
-                >
-                    Add Monsters or Npcs
-        </Button>
-            </div>
-        </form>
+                onClick={
+                    event => {
+                        event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+                        handleControlledInputChange()
+                    }}>Save</Button>
+            <Button
+                onClick={
+                    event => {
+                        event.preventDefault()
+                    }}>Cancel</Button>
+        </Form>
     );
 };
 
