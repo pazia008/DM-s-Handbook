@@ -8,15 +8,19 @@ const CampaignEditForm = () => {
     const { campaignId } = useParams();
     const { updateCampaign, getCampaignById } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [campaign, setCampaign] = useState({
         userId: 0,
         name: "",
     });
 
+    //gets campaigns by their Id
+    //takes the response and updates the state of campaign
     useEffect(() => {
         getCampaignById(campaignId)
             .then(resp => setCampaign(resp))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
     // Handles updating the state of campaign 
@@ -42,6 +46,7 @@ const CampaignEditForm = () => {
             .then(() => history.push(`/campaigns`));
     }
 
+    //edit form users will fill out
     return (
         <>
 

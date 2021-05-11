@@ -15,6 +15,8 @@ const Campaign = ({ campaign }) => {
         deleteCampaign(campaign);
     }
 
+
+    //sets what it will look like on the dom
     return (
         <Card className="m-2 shadow postCard">
             <CardHeader>

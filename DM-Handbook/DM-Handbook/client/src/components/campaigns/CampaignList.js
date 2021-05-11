@@ -8,12 +8,16 @@ import Campaign from "./Campaigns";
 const CampaignList = () => {
     const { campaigns, getAllCampaigns, setCampaigns } = useContext(CampaignsContext);
 
+    //gets all campaigns
+    //takes the response and updates the state of campaign
     useEffect(() => {
         getAllCampaigns()
             .then((res) => setCampaigns(res))
             .then(console.log(campaigns))
     }, []);
 
+
+    //creates the list of all the campaigns made by the current user
     return (
         <Container>
             <Row className="justify-content-md-center">

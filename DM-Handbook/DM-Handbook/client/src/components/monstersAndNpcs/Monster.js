@@ -22,6 +22,8 @@ const Monster = ({ monsterNpc }) => {
 
     const history = useHistory();
 
+
+    //sets what it will look like on the dom
     // the question mark helps with handling null information
     return (
         <Card className="m-2 shadow postCard">

@@ -16,6 +16,8 @@ export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
+    //handles all of the links in the navbar
+
     return (
         <div>
             <Navbar color="light" light expand="md">

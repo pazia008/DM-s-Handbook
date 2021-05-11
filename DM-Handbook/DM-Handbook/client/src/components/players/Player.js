@@ -15,11 +15,13 @@ const Player = ({ player }) => {
         deletePlayer(player);
     }
 
+
     let date = new Date(player.dateCreated);
     console.log(player)
 
     const history = useHistory();
 
+    //sets what it will look like on the dom
 
     return (
         <Card className="m-2 shadow postCard">

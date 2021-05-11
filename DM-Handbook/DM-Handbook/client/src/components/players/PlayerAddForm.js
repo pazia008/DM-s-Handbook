@@ -9,6 +9,8 @@ const PlayerFormAdd = () => {
     const { savePlayer, getAllPlayers } = useContext(PlayersContext);
     const { getAllCampaigns, campaigns } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [player, setPlayer] = useState({
         userId: 0,
         campaignId: 0,
@@ -35,24 +37,26 @@ const PlayerFormAdd = () => {
         setPlayer(newPlayer);
     };
 
+    //gets all of the players
     useEffect(() => {
         getAllPlayers();
     }, []);
 
+    //gets all of the campaigns
     useEffect(() => {
         getAllCampaigns();
     }, []);
 
     const handleClickSavePlayer = () => {
 
-
+        //adds to the database 
         const campaignId = parseInt(player.campaignId);
         const name = player.name;
         const race = player.race;
         const howTheyPlay = player.howTheyPlay;
         const dateCreated = player.dateCreated;
 
-
+        //pop-up windows if a users leaves info blank
         if (name === "") {
             window.alert("Make sure to write their name!");
         } else if (dateCreated === "") {
@@ -77,10 +81,12 @@ const PlayerFormAdd = () => {
                 howTheyPlay: player.howTheyPlay,
                 dateCreated: player.dateCreated,
             })
+                //pushes to the list of players
                 .then(() => history.push("/players"));
         }
     };
 
+    //the form users will fill out
     return (
         <>
             <form className="Form">

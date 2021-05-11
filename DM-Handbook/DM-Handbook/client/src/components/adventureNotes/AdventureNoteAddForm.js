@@ -9,6 +9,8 @@ const AdventureNoteFormAdd = () => {
     const { saveAdventureNote, getAllAdventureNotes } = useContext(AdventureNotesContext);
     const { getAllCampaigns, campaigns } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [adventureNote, setAdventureNote] = useState({
         userId: 0,
         campaignId: 0,
@@ -33,23 +35,26 @@ const AdventureNoteFormAdd = () => {
         setAdventureNote(newAdventureNote);
     };
 
+    //gets all notes
     useEffect(() => {
         getAllAdventureNotes();
     }, []);
 
+    //gets all campaigns
     useEffect(() => {
         getAllCampaigns();
     }, []);
 
     const handleClickSaveNote = () => {
+        //for debugging purposes
         console.log(adventureNote);
 
-
+        //adds to the database
         const campaignId = parseInt(adventureNote.campaignId);
         const synopsis = adventureNote.synopsis;
         const dateCreated = adventureNote.dateCreated;
 
-
+        //makes pop-up windows to inform users they have fields they still need to fill out
         if (synopsis === "") {
             window.alert("Make sure to write about your adventure!");
         } else if (dateCreated === "") {
@@ -68,10 +73,12 @@ const AdventureNoteFormAdd = () => {
                 synopsis: adventureNote.synopsis,
                 dateCreated: adventureNote.dateCreated,
             })
+                //pushes back to the list of adventure notes
                 .then(() => history.push("/adventureNotes"));
         }
     };
 
+    //the form that users will fill out
     return (
         <>
             <form className="Form">

@@ -7,6 +7,8 @@ const CampaignAddForm = () => {
     const history = useHistory();
     const { saveCampaign } = useContext(CampaignsContext);
     const [isLoading, setIsLoading] = useState(false);
+
+    //sets the state for how it will appear in the api
     const [campaign, setCampaign] = useState({
         userId: 0,
         name: ""
@@ -30,9 +32,11 @@ const CampaignAddForm = () => {
             userId: campaign.userId,
             name: campaign.name
         })
+            //pushes to the list of campaigns
             .then(() => history.push("/campaigns"));
     }
 
+    //the form that users will fill out
     return (
         <>
             <form className="campaignForm">
