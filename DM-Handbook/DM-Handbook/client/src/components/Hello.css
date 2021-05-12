@@ -1,0 +1,28 @@
+.dFour{
+    width: 5rem;   
+}
+
+.dSix{
+    width: 5rem; 
+}
+
+.dEight{
+    width: 5rem;
+}
+
+.dTen{
+    width: 5rem;
+}
+
+.dTwelve{
+    width: 5rem;
+}
+
+.dTwenty{
+    width: 5rem;
+}
+
+.flexRow{
+    display: flex;
+    justify-content: center;
+}
