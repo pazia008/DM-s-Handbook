@@ -48,12 +48,12 @@ namespace DM_Handbook.Controllers
 
             if (currentUserProfile == null) return NotFound();
 
-            var tag = _adventureNotesRepository.GetById(adventureNoteId);
-            if (tag == null)
+            var note = _adventureNotesRepository.GetById(adventureNoteId);
+            if (note == null)
             {
                 return NotFound();
             }
-            return Ok(tag);
+            return Ok(note);
         }
 
 
