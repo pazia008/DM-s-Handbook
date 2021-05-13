@@ -26,3 +26,19 @@
     display: flex;
     justify-content: center;
 }
+.flexColumn{
+    display: flex;
+    flex-direction: column;
+justify-content: center;
+}
+
+.text{
+    font-size: x-large;
+}
+
+.numberFour{
+    font-size: 90px;
+    position: "fixed";
+    text-align: center;
+    
+}
