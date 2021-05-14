@@ -107,6 +107,7 @@ const PlayerFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="synopsis">Name: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="name"
                             onChange={handleControlledInputChange}
@@ -123,6 +124,7 @@ const PlayerFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="race">Race: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="race"
                             onChange={handleControlledInputChange}
@@ -139,6 +141,7 @@ const PlayerFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="howTheyPlay">How do they play: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="howTheyPlay"
                             onChange={handleControlledInputChange}
@@ -155,6 +158,7 @@ const PlayerFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="dateCreated">Date Created: </label>
                         <input
+                            autoComplete="off"
                             type="date"
                             id="dateCreated"
                             onChange={handleControlledInputChange}
