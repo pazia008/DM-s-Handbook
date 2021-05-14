@@ -99,6 +99,7 @@ const AdventureNoteFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="synopsis">Synopsis: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="synopsis"
                             onChange={handleControlledInputChange}

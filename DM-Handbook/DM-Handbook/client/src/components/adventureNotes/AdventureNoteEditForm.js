@@ -83,7 +83,7 @@ const AdventureEditForm = () => {
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="synopsis">Synopsis: </label>
-                        <input type="text" id="synopsis" onChange={handleInput} required autoFocus className="form-control" placeholder="synopsis" value={adventureNote.synopsis} />
+                        <input autoComplete="off" type="text" id="synopsis" onChange={handleInput} required autoFocus className="form-control" placeholder="synopsis" value={adventureNote.synopsis} />
                     </div>
                 </fieldset>
 

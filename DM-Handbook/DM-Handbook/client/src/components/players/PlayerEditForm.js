@@ -73,7 +73,7 @@ const PlayerEditForm = () => {
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="campaignId">Campaign: </label>
-                        <select id="campaignId" className="form-control" value={player.campaignId} onChange={handleInput}>
+                        <select autoComplete="off" id="campaignId" className="form-control" value={player.campaignId} onChange={handleInput}>
                             {campaigns.map((c) => (
                                 <option key={c.id} value={c.id}>
                                     {c.name}
@@ -87,7 +87,7 @@ const PlayerEditForm = () => {
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="name">Name: </label>
-                        <input type="text" id="name" onChange={handleInput} required autoFocus className="form-control" placeholder="name" value={player.name} />
+                        <input autoComplete="off" type="text" id="name" onChange={handleInput} required autoFocus className="form-control" placeholder="name" value={player.name} />
                     </div>
                 </fieldset>
 
@@ -95,7 +95,7 @@ const PlayerEditForm = () => {
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="race">Race: </label>
-                        <input type="text" id="race" onChange={handleInput} required autoFocus className="form-control"
+                        <input autoComplete="off" type="text" id="race" onChange={handleInput} required autoFocus className="form-control"
                             placeholder="Race" value={player.race} />
                     </div>
                 </fieldset>
@@ -104,7 +104,7 @@ const PlayerEditForm = () => {
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="howTheyPlay">How Do They Play: </label>
-                        <input type="text" id="howTheyPlay" onChange={handleInput} required autoFocus className="form-control" placeholder="What are their characters like?" value={player.howTheyPlay} />
+                        <input autoComplete="off" type="text" id="howTheyPlay" onChange={handleInput} required autoFocus className="form-control" placeholder="What are their characters like?" value={player.howTheyPlay} />
                     </div>
                 </fieldset>
 
@@ -112,7 +112,7 @@ const PlayerEditForm = () => {
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="dateCreated">Date Created: </label>
-                        <input type="date" id="dateCreated" onChange={handleInput} required autoFocus className="form-control" placeholder="Date Created" value={player.dateCreated} />
+                        <input autoComplete="off" type="date" id="dateCreated" onChange={handleInput} required autoFocus className="form-control" placeholder="Date Created" value={player.dateCreated} />
                     </div>
                 </fieldset>
 

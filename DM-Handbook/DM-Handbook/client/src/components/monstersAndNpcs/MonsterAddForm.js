@@ -109,6 +109,7 @@ const MonsterFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="synopsis">Name: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="name"
                             onChange={handleControlledInputChange}
@@ -125,6 +126,7 @@ const MonsterFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="synopsis">Synopsis: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="synopsis"
                             onChange={handleControlledInputChange}
@@ -141,6 +143,7 @@ const MonsterFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="abilities">Abilities: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="abilities"
                             onChange={handleControlledInputChange}
@@ -157,6 +160,7 @@ const MonsterFormAdd = () => {
                     <div className="form-group">
                         <label htmlFor="dateCreated">Date Created: </label>
                         <input
+                            autoComplete="off"
                             type="date"
                             id="dateCreated"
                             onChange={handleControlledInputChange}

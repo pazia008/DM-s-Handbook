@@ -47,6 +47,7 @@ const CampaignAddForm = () => {
                     <div className="form-group">
                         <label htmlFor="title">Campaign Name: </label>
                         <input
+                            autoComplete="off"
                             type="text"
                             id="name"
                             onChange={handleInput}
